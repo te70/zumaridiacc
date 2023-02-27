@@ -21,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/sales/wines', function(){
     return view('welcome');
 });
+
+Route::post('/sales/rooms', function(){
+    return view('welcome');
+});
