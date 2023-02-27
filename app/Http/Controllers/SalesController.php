@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 class SalesController extends Controller
 {
+    public function showWines(){
+        return view('wines');
+    }
+
     public function wines(Request $request){
         $request->validate([
             'product_name' => 'required',
@@ -47,6 +51,10 @@ class SalesController extends Controller
             "code" => 200,
             "data" => $wines
         ]);
+    }
+
+    public function showBar(){
+        return view('bars');
     }
 
     public function bar(Request $request){
@@ -156,7 +164,24 @@ class SalesController extends Controller
             "data" => $inbet
         ]);
     }
-    
 
+    public function addProduct(Request $request){
+        $request->validate([
+            'product_name' => 'required',
+            'price' => 'required',
+            'size' => 'required'
+        ]);
+
+        $product = Wines::create([
+            "product_name" => $request->product_name,
+            "price" => $request->price,
+            "size" => $request->size 
+        ]);
+
+        return response()->json([
+            "code" => 200,
+            "data" => $product
+        ]);
+    }
     
 }
