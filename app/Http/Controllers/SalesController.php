@@ -8,11 +8,15 @@ use App\Models\Inbet;
 use App\Models\PlayStation;
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class SalesController extends Controller
 {
     public function showWines(){
-        return view('wines');
+       $products = Wines::all();
+       
+       return view('wines', compact('products'));
     }
 
     public function wines(Request $request){
@@ -54,7 +58,8 @@ class SalesController extends Controller
     }
 
     public function showBar(){
-        return view('bars');
+        return view('ba
+        rs');
     }
 
     public function bar(Request $request){
@@ -165,22 +170,30 @@ class SalesController extends Controller
         ]);
     }
 
+    public function productForm(){
+        return view('productform');
+    }
+
     public function addProduct(Request $request){
         $request->validate([
             'product_name' => 'required',
-            'price' => 'required',
-            'size' => 'required'
+            'price' => 'required'
         ]);
 
         $product = Wines::create([
             "product_name" => $request->product_name,
             "price" => $request->price,
-            "size" => $request->size 
         ]);
+        echo $product;
+        return redirect('/sales/wines');
+    }
+
+    public function productList(){
+        $products = Wines::all();
 
         return response()->json([
             "code" => 200,
-            "data" => $product
+            "data" => $products
         ]);
     }
     

@@ -14,4 +14,6 @@ Route::post('/sales/bar', [SalesController::class, 'bar']);
 Route::post('/sales/rooms', [SalesController::class, 'rooms']);
 Route::post('/sales/ps', [SalesController::class, 'playStation']);
 Route::post('/sales/inbet', [SalesController::class, 'inbet']);
-Route::post('/sales/product-list', [SalesController::class, 'product-list']);
+Route::get('/sales/product-list', [SalesController::class, 'productList']);
+Route::post('/sales/add-product', [SalesController::class, 'addProduct'])->name('add.product');
+

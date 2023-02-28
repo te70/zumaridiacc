@@ -11,8 +11,8 @@
               <div class="col-sm-3">
                 <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                   <div class="card-body">
-                    <h4 class="card-text" style="text-align: center;">2</h4>
-                    <p class="card-title" style="font-size: 20px; text-align: center;">Items</p>
+                    <h4 class="card-text" style="text-align: center;">{{$products->count()}}</h4>
+                    <p class="card-title" style="font-size: 20px; text-align: center;">Products</p>
                   </div>
                 </div>
               </div>
@@ -23,7 +23,7 @@
         <div class="card-body">
           <div class="table-responsive" style="padding-top: 20px; margin-left: 10px;">
             <div class="btn-group mr-2" style="float: right;">
-                <a type="submit" class="btn btn-sm btn-outline-primary" href="">Add new product</a>
+                <a type="submit" class="btn btn-sm btn-outline-primary" href="{{route('productform')}}">Add new product</a>
                 <a type="submit" class="btn btn-sm btn-outline-primary" href="">Export</a>
               </div>
               <h6 style="padding-bottom: 20px; color: #656b71;">Wines sale</h6>
@@ -41,18 +41,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {{-- @foreach ($stocks as $stock) --}}
+                  @foreach($products as $product)
                     <tr>
-                      <td>Chrome vodka 250ml</td>  
-                      <td>2</td>
-                      <td><input type="number" name="add_stock" value="2" data-id="2"></td>
-                      <td>2</td>
-                      <td><input type="number" name="closing_stock" value="2" data-id="2"></td>
-                      <td>2</td>
-                      <td>200</td>
-                      <td class="total-amount">2000</td>
+                      <td>{{$product->product_name}}</td>  
+                      <td><input type="text" class="form-control" name="open_stock" value={{$product->open}}></td>
+                      <td><input type="number" name="add_stock" class="add-stock" id="add_stock" value="{{ $product->add_stock }}" data-price="{{ $product->add_stock}}" data-row="{{ $loop->index }}"></td>
+                      <td id="total_stock"></td>
+                      <td><input type="number" name="closing_stock" value={{$product->close}} data-id={{$product->id}}></td>
+                      <td><input type="number" name="difference" value={{$product->difference}} data-id={{$product->id}}></td>
+                      <td>{{$product->price}}</td>
+                      <td class="rr"></td>
                     </tr>
-                  {{-- @endforeach --}}
+                  @endforeach
                 </tbody>
               </table>
           </div>
@@ -65,31 +65,26 @@
         $('#wines-table').DataTable();
     });
 
-    $(document).on('change', 'input[name="add_stock"], input[name="closing_stock"]', function() {
-  var id = $(this).data('id');
-  var addStock = $('input[name="add_stock"][data-id="' + id + '"]').val();
-  var closingStock = $('input[name="closing_stock"][data-id="' + id + '"]').val();
-  var price = $('td[data-id="' + id + '"].price').text();
-  var totalAmount = closingStock * price;
-  $('td[data-id="' + id + '"].total-amount').text(totalAmount);
+    var addStockInputs = document.querySelectorAll('.add-stock');
+    addStockInputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            var productId = this.dataset.id;
+            var addStock = this.value;
+            var openStock = parseInt(parseInt(document.getElementsByName("open_stock")[0].value));
+            var totalStock = openStock + parseInt(addStock);
+            var price = parseFloat(this.parentNode.nextSibling.textContent);
+            var totalAmount = totalStock * price;
+            this.parentNode.nextSibling.nextSibling.textContent = totalStock;
+            this.parentNode.nextSibling.nextSibling.nextSibling.textContent = totalAmount.toFixed(2);
+        });
+    });
 
-  $.ajax({
-    url: '/update-stock',
-    type: 'POST',
-    data: {
-      id: id,
-      add_stock: addStock,
-      closing_stock: closingStock,
-      _token: '{{ csrf_token() }}'
-    },
-    success: function(response) {
-      // handle success response
-    },
-    error: function(xhr, textStatus, errorThrown) {
-      // handle error response
-    }
-  });
-});
+//   document.getElementById("add_stock").addEventListener("input", function() {
+//     var open_stock = parseInt(document.getElementsByName("open_stock")[0].value);
+//     var add_stock = parseInt(this.value);
+//     var total_stock = open_stock + add_stock;
+//     document.getElementById("total_stock").textContent = total_stock;
+// });
 
     </script>
 </x-app-layout>
