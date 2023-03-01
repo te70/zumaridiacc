@@ -29,9 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::get('/sales/wines', [SalesController::class, 'showWines'])->name('showwines');
+    Route::get('/sales/wines/product-form', [SalesController::class, 'productForm'])->name('productform');
+    Route::get('/sales/wines/expenses', [SalesController::class, 'showExpenses'])->name('winesexpenses');
+
     Route::get('/sales/bar', [SalesController::class, 'showBar'])->name('showbar');
 
-    Route::get('/sales/wines/product-form', [SalesController::class, 'productForm'])->name('productform');
+    
+    
 });
 
 require __DIR__.'/auth.php';

@@ -9,7 +9,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/sales/wines', [SalesController::class, 'wines']);
+Route::post('/sales/wines', [SalesController::class, 'wines'])->name('sales.wines');
+Route::post('/sales/wines/expenses', [SalesController::class, 'winesExpenses'])->name('sales.expenses');
 Route::post('/sales/bar', [SalesController::class, 'bar']);
 Route::post('/sales/rooms', [SalesController::class, 'rooms']);
 Route::post('/sales/ps', [SalesController::class, 'playStation']);

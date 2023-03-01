@@ -24,12 +24,14 @@
           <div class="table-responsive" style="padding-top: 20px; margin-left: 10px;">
             <div class="btn-group mr-2" style="float: right;">
                 <a type="submit" class="btn btn-sm btn-outline-primary" href="{{route('productform')}}">Add new product</a>
+                <a type="submit" class="btn btn-sm btn-outline-primary" href="{{route('winesexpenses')}}">Expenses</a>
                 <a type="submit" class="btn btn-sm btn-outline-primary" href="">Export</a>
               </div>
               <h6 style="padding-bottom: 20px; color: #656b71;">Wines sale</h6>
             <table class="table" id="wines-table">
                 <thead>
                   <tr>
+                    <th>#</th>
                     <th>Product name</th>
                     <th>Opening Stock</th>
                     <th>Add Stock</th>
@@ -41,11 +43,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($products as $product)
+                  @foreach($products as $key=>$product)
                     <tr>
+                      <td>{{$key+1}}</td>
                       <td>{{$product->product_name}}</td>  
-                      <td><input type="text" class="form-control w-50" name="open_stock" value={{$product->open}} disabled></td>
-                      <td><input type="number" name="add-stock" class="add-stock w-50" id="add-stock" data-price={{$product->price}} value={{ $product->add_stock }}></td>
+                      <td><input type="text" class="form-control w-50" name="open_stock" value={{$product->open}} data-id={{$product->id}} disabled></td>
+                      <td><input type="number" name="add-stock" class="add-stock w-50" id="add-stock" data-price={{$product->price}} data-id={{$product->id}} value={{ $product->add_stock }}></td>
                       <td id="total_stock"></td>
                       <td><input type="number" class="close-stock w-50" name="close-stock" id="close-stock" data-price={{$product->price}} value={{$product->close}} data-id={{$product->id}}></td>
                       <td id="difference"></td>
@@ -55,6 +58,34 @@
                   @endforeach
                 </tbody>
               </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="" style="margin-left: 100px; margin-bottom:30px; margin-right: 150px;">
+      <div class="row" style="margin-top: 30px;">          
+        <div class="col-sm-3">
+          <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+            <div class="card-body">
+              <h4 class="card-text" style="text-align: center;">{{$products->count()}}</h4>
+              <p class="card-title" style="font-size: 20px; text-align: center;">Total amount</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+            <div class="card-body">
+              <h4 class="card-text" style="text-align: center;">{{$products->count()}}</h4>
+              <p class="card-title" style="font-size: 20px; text-align: center;">Expenses</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+            <div class="card-body">
+              <h4 class="card-text" style="text-align: center;">{{$products->count()}}</h4>
+              <p class="card-title" style="font-size: 20px; text-align: center;">Net cash</p>
+            </div>
           </div>
         </div>
       </div>
@@ -75,7 +106,7 @@
             this.parentNode.nextSibling.nextSibling.textContent = totalStock;         
         });
     });
-
+    
     var closeStockInputs = document.querySelectorAll('.close-stock');
     closeStockInputs.forEach(function(input, index) {
         input.addEventListener('input', function() {
@@ -89,7 +120,39 @@
             var price = parseFloat(this.getAttribute('data-price'));
             var totalAmount = difference * price;
             this.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent = totalAmount;
+             $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+              $.ajax({
+                url: '/api/sales/wines',
+                type: 'POST',
+                data: {
+                  product_id: productId,
+                  open: openStock,
+                  total: totalStock,
+                  close: closeStock,
+                  difference: difference,
+                  price: price,
+                  total_amount: totalAmount,
+                  expenses: expenses,
+                  gross_cash: grossCash,
+                  mpesa: mpesa,
+                  net_cash: netCash
+                },
+                success: function(data) {
+                  if(data.length == 0){
+                  console.log("No data returned");
+                  } else {
+                  console.log("data is returned");
+                  }
+                }
+              });
         });
     });
+    
+   
+
     </script>
 </x-app-layout>
