@@ -44,13 +44,13 @@
                   @foreach($products as $product)
                     <tr>
                       <td>{{$product->product_name}}</td>  
-                      <td><input type="text" class="form-control" name="open_stock" value={{$product->open}}></td>
-                      <td><input type="number" name="add_stock" class="add-stock" id="add_stock" value="{{ $product->add_stock }}" data-price="{{ $product->add_stock}}" data-row="{{ $loop->index }}"></td>
+                      <td><input type="text" class="form-control w-50" name="open_stock" value={{$product->open}} disabled></td>
+                      <td><input type="number" name="add-stock" class="add-stock w-50" id="add-stock" data-price={{$product->price}} value={{ $product->add_stock }}></td>
                       <td id="total_stock"></td>
-                      <td><input type="number" name="closing_stock" value={{$product->close}} data-id={{$product->id}}></td>
-                      <td><input type="number" name="difference" value={{$product->difference}} data-id={{$product->id}}></td>
-                      <td>{{$product->price}}</td>
-                      <td class="rr"></td>
+                      <td><input type="number" class="close-stock w-50" name="close-stock" id="close-stock" data-price={{$product->price}} value={{$product->close}} data-id={{$product->id}}></td>
+                      <td id="difference"></td>
+                      <td><input type="number" class="price w-50" name="price" id="price" data-price={{$product->price}} value={{$product->price}} data-id={{$product->id}} disabled></td>
+                      <td class="total_amount"></td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -66,25 +66,30 @@
     });
 
     var addStockInputs = document.querySelectorAll('.add-stock');
-    addStockInputs.forEach(function(input) {
+    addStockInputs.forEach(function(input, index) {
         input.addEventListener('input', function() {
             var productId = this.dataset.id;
-            var addStock = this.value;
+            var addStock = parseInt(input.value);
             var openStock = parseInt(parseInt(document.getElementsByName("open_stock")[0].value));
-            var totalStock = openStock + parseInt(addStock);
-            var price = parseFloat(this.parentNode.nextSibling.textContent);
-            var totalAmount = totalStock * price;
-            this.parentNode.nextSibling.nextSibling.textContent = totalStock;
-            this.parentNode.nextSibling.nextSibling.nextSibling.textContent = totalAmount.toFixed(2);
+            var totalStock = openStock + addStock;
+            this.parentNode.nextSibling.nextSibling.textContent = totalStock;         
         });
     });
 
-//   document.getElementById("add_stock").addEventListener("input", function() {
-//     var open_stock = parseInt(document.getElementsByName("open_stock")[0].value);
-//     var add_stock = parseInt(this.value);
-//     var total_stock = open_stock + add_stock;
-//     document.getElementById("total_stock").textContent = total_stock;
-// });
-
+    var closeStockInputs = document.querySelectorAll('.close-stock');
+    closeStockInputs.forEach(function(input, index) {
+        input.addEventListener('input', function() {
+            var productId = this.dataset.id;
+            var openStock = parseInt(parseInt(document.getElementsByName("open_stock")[0].value));
+            var addStock = parseInt(addStockInputs[index].value);
+            var closeStock = parseInt(input.value);
+            var totalStock = openStock + addStock;
+            var difference = totalStock - closeStock;
+            this.parentNode.nextSibling.nextSibling.textContent = difference; 
+            var price = parseFloat(this.getAttribute('data-price'));
+            var totalAmount = difference * price;
+            this.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent = totalAmount;
+        });
+    });
     </script>
 </x-app-layout>
