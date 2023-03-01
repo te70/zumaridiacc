@@ -49,7 +49,7 @@
                       <td id="total_stock"></td>
                       <td><input type="number" class="close-stock w-50" name="close-stock" id="close-stock" data-price={{$product->price}} value={{$product->close}} data-id={{$product->id}}></td>
                       <td id="difference"></td>
-                      <td id="stock-price">{{ $product->price }}</td>
+                      <td><input type="number" class="price w-50" name="price" id="price" data-price={{$product->price}} value={{$product->price}} data-id={{$product->id}} disabled></td>
                       <td class="total_amount"></td>
                     </tr>
                   @endforeach
@@ -72,7 +72,6 @@
             var addStock = parseInt(input.value);
             var openStock = parseInt(parseInt(document.getElementsByName("open_stock")[0].value));
             var totalStock = openStock + addStock;
-            var price = parseFloat(this.parentNode.nextSibling.textContent);
             this.parentNode.nextSibling.nextSibling.textContent = totalStock;         
         });
     });
@@ -81,28 +80,16 @@
     closeStockInputs.forEach(function(input, index) {
         input.addEventListener('input', function() {
             var productId = this.dataset.id;
-            var openStock = parseInt(parseInt(document.getElementsByName("open_stock").value));
+            var openStock = parseInt(parseInt(document.getElementsByName("open_stock")[0].value));
             var addStock = parseInt(addStockInputs[index].value);
             var closeStock = parseInt(input.value);
             var totalStock = openStock + addStock;
             var difference = totalStock - closeStock;
             this.parentNode.nextSibling.nextSibling.textContent = difference; 
-            var price = parseFloat(document.querySelector(`#stock-${index}-price`));
+            var price = parseFloat(this.getAttribute('data-price'));
             var totalAmount = difference * price;
             this.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent = totalAmount;
         });
     });
-
-    
- 
-
-
-//   document.getElementById("add_stock").addEventListener("input", function() {
-//     var open_stock = parseInt(document.getElementsByName("open_stock")[0].value);
-//     var add_stock = parseInt(this.value);
-//     var total_stock = open_stock + add_stock;
-//     document.getElementById("total_stock").textContent = total_stock;
-// });
-
     </script>
 </x-app-layout>
