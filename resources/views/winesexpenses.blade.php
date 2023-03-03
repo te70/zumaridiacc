@@ -1,70 +1,131 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Wines expenses') }}
+            {{ __('Bar') }}
         </h2>
     </x-slot>
-
-    <div class="card" style="margin-left: 150px; margin-top:30px; margin-right: 150px; border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+  
+    <div class="py-12">
+        <div class="" style="margin-left: 250px; margin-bottom:30px; margin-right: 150px;">
+            <div class="row" style="margin-top: 30px;">          
+              <div class="col-sm-3">
+                <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                  <div class="card-body">
+                    <h4 class="card-text" style="text-align: center;">{{$expenses->count()}}</h4>
+                    <p class="card-title" style="font-size: 20px; text-align: center;">All expenses</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                  <div class="card-body">
+                    <h4 class="card-text" style="text-align: center;">{{$expensesToday->count()}}</h4>
+                    <p class="card-title" style="font-size: 20px; text-align: center;">Today's expenses</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+    <div class="card" style="margin-left: 250px; margin-right: 100px; border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
         <div class="card-body">
-    <div class="container">
-        <form action="{{ route('sales.expenses') }}" method="POST">
-            @csrf
-            @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-            @if (Session::has('success'))
-            <div class="alert alert-success text-center">
-                <p>{{ Session::get('success') }}</p>
-            </div>
-            @endif
-            <table class="table table-bordered" id="dynamicAddRemove">
-                <tr>
-                    <th>Item</th>
-                    <th>Amount</th>
+          <div class="table-responsive" style="padding-top: 20px; margin-left: 10px;">
+            <div class="btn-group mr-2" style="float: right;">
+                <a type="submit" class="btn btn-sm btn-outline-primary" href="{{route('wexpensesform')}}">Add new expense</a>
+                <a type="submit" class="btn btn-sm btn-outline-primary" href="">Export</a>
+              </div>
+              <h6 style="padding-bottom: 20px; color: #656b71;">Wines expenses</h6>
+            <table class="table" id="wines-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Expense name</th>
                     <th>Department</th>
-                    <th>Action</th>
-                </tr>
-                <tr>
-                    <td><input type="text" name="item[]" placeholder="Chrome 250ml" class="form-control" />
-                    </td>
-                    <td><input type="text" name="amount[]" placeholder="pieces" class="form-control" />
-                    </td>
-                    <td><select class="form-select" aria-label="Default select example" name="department[]" id="department">
-                        <option selected>Open to select department</option>
-                          <option value="wines">wines</option>
-                          <option value="bar">bar</option>
-                    </select>
-                    </td>
-                    <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add Subject</button></td>
-                </tr>
-            </table>
-            <button type="submit" class="btn btn-outline-success btn-block">Save</button>
-        </form>
-    </div>
+                    <th>Pieces</th>
+                    <th>Total amount</th>
+                    <th>Date created</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($expenses as $key=>$expense)
+                    <tr>
+                      <td>{{$key+1}}</td>
+                      <td style="text-transform: uppercase;">{{$expense->item}}</td>  
+                      <td style="text-transform: uppercase;">{{$expense->department}}</td>
+                      <td>{{$expense->amount}}</td>
+                      <td>{{$expense->total_amount}}</td>
+                      <td>{{date('d-m-Y', strtotime($expense->created_at));}}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
         </div>
+      </div>
     </div>
-<!-- JavaScript -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-    var i = 0;
-    $("#dynamic-ar").click(function () {
-        ++i;
-        $("#dynamicAddRemove").append('<tr><td><input type="text" name="item[' + i +
-            ']" placeholder="Chrome 250ml" class="form-control" /></td></td><td><input type="text" name="amount[' + i +
-            ']" placeholder="pieces" class="form-control" /></td><td><select class="form-select" aria-label="Default select example" name="department[]" id="department"><option selected>Open to select department</option><option value="wines">wines</option><option value="bar">bar</option></select></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
-            );
+  
+    <script>
+    $(document).ready(function() {
+        $('#wines-table').DataTable();
     });
-    $(document).on('click', '.remove-input-field', function () {
-        $(this).parents('tr').remove();
+  
+    var addStockInputs = document.querySelectorAll('.add-stock');
+    addStockInputs.forEach(function(input, index) {
+        input.addEventListener('input', function() {
+            var productId = this.dataset.id;
+            var addStock = parseInt(input.value);
+            var openStock = parseInt(parseInt(document.getElementsByName("open_stock")[0].value));
+            var totalStock = openStock + addStock;
+            this.parentNode.nextSibling.nextSibling.textContent = totalStock;         
+        });
     });
-
-</script>
-</x-app-layout>
+    
+    var closeStockInputs = document.querySelectorAll('.close-stock');
+    closeStockInputs.forEach(function(input, index) {
+        input.addEventListener('input', function() {
+            var productId = this.dataset.id;
+            var openStock = parseInt(parseInt(document.getElementsByName("open_stock")[0].value));
+            var addStock = parseInt(addStockInputs[index].value);
+            var closeStock = parseInt(input.value);
+            var totalStock = openStock + addStock;
+            var difference = totalStock - closeStock;
+            this.parentNode.nextSibling.nextSibling.textContent = difference; 
+            var price = parseFloat(this.getAttribute('data-price'));
+            var totalAmount = difference * price;
+            this.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent = totalAmount;
+             $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+              });
+              $.ajax({
+                url: '/api/sales/wines',
+                type: 'POST',
+                data: {
+                  product_id: productId,
+                  open: openStock,
+                  total: totalStock,
+                  close: closeStock,
+                  difference: difference,
+                  price: price,
+                  total_amount: totalAmount,
+                  expenses: expenses,
+                  gross_cash: grossCash,
+                  mpesa: mpesa,
+                  net_cash: netCash
+                },
+                success: function(data) {
+                  if(data.length == 0){
+                  console.log("No data returned");
+                  } else {
+                  console.log("data is returned");
+                  }
+                }
+              });
+        });
+    });
+    
+   
+  
+    </script>
+  </x-app-layout>
+  

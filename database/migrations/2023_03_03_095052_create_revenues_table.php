@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('expenses', function (Blueprint $table) {
+        Schema::create('revenues', function (Blueprint $table) {
             $table->id();
-            $table->string('item');
-            $table->string('department');
-            $table->string('amount');
-            $table->string('total_amount');
+            $table->string('expenses');
+            $table->string('gross_cash')->default('0');
+            $table->string('mpesa');
+            $table->string('net_cash');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('expenses');
+        Schema::dropIfExists('revenues');
     }
 };

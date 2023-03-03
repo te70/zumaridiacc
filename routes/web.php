@@ -4,16 +4,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,11 +21,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/sales/wines', [SalesController::class, 'showWines'])->name('showwines');
     Route::get('/sales/wines/product-form', [SalesController::class, 'productForm'])->name('productform');
     Route::get('/sales/wines/expenses', [SalesController::class, 'showExpenses'])->name('winesexpenses');
+    Route::get('/sales/wines/expenses/form', [SalesController::class, 'wExpensesForm'])->name('wexpensesform');
 
     Route::get('/sales/bar', [SalesController::class, 'showBar'])->name('showbar');
 
-    
-    
+    Route::get('/sales/rooms', [SalesController::class, 'showRooms'])->name('showrooms');
+
+    Route::get('/sales/playstation', [SalesController::class, 'showPlaystation'])->name('showplaystation');
+
+    Route::get('/sales/inbet', [SalesController::class, 'showInbet'])->name('showinbet');
 });
 
 require __DIR__.'/auth.php';

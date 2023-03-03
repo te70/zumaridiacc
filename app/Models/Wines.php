@@ -10,7 +10,6 @@ class Wines extends Model
     use HasFactory;
 
     protected $fillable = [
-        'product_name',
         'open',
         'add',
         'total',
