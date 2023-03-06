@@ -47,15 +47,21 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showplaystation')}}">
+              <a class="nav-link" href="{{route('showps')}}">
                 <span data-feather="users"></span>
                 Playstation
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showinbet')}}">
+              <a class="nav-link" href="{{route('showib')}}">
                 <span data-feather="sliders"></span>
                 Inbet
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('showinbet')}}">
+                <span data-feather="sliders"></span>
+                Users
               </a>
             </li>
           </ul>

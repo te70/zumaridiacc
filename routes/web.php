@@ -24,12 +24,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/sales/wines/expenses/form', [SalesController::class, 'wExpensesForm'])->name('wexpensesform');
 
     Route::get('/sales/bar', [SalesController::class, 'showBar'])->name('showbar');
+    Route::get('/sales/bar/form', [SalesController::class, 'barProductForm'])->name('barform');
+    Route::get('/sales/bar/expenses', [SalesController::class, 'showBExpenses'])->name('bexpenses');
+    Route::get('/sales/bar/expenses/form', [SalesController::class, 'bExpensesForm'])->name('bexpensesform');
 
     Route::get('/sales/rooms', [SalesController::class, 'showRooms'])->name('showrooms');
 
     Route::get('/sales/playstation', [SalesController::class, 'showPlaystation'])->name('showplaystation');
+    Route::get('/sales/ps', [SalesController::class, 'showPs'])->name('showps');
 
     Route::get('/sales/inbet', [SalesController::class, 'showInbet'])->name('showinbet');
+    Route::get('/sales/ib', [SalesController::class, 'showIb'])->name('showib');
 });
 
 require __DIR__.'/auth.php';

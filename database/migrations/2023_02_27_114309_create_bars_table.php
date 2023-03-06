@@ -13,18 +13,14 @@ return new class extends Migration
     {
         Schema::create('bars', function (Blueprint $table) {
             $table->id();
-            $table->string('product_name');
-            $table->string('open');
-            $table->string('add');
-            $table->string('total');
-            $table->string('close');
-            $table->string('difference');
-            $table->string('price');
-            $table->string('total_amount');
-            $table->string('expenses');
-            $table->string('gross_cash');
-            $table->string('mpesa');
-            $table->string('net_cash');
+            $table->string('product_name')->nullable();
+            $table->string('open')->nullable();
+            $table->string('add')->nullable();
+            $table->string('total')->nullable();
+            $table->string('close')->nullable();
+            $table->string('difference')->nullable();
+            $table->string('price')->nullable();
+            $table->string('total_amount')->nullable();
             $table->timestamps();
         });
     }
