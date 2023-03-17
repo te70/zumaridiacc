@@ -12,8 +12,6 @@ use App\Models\Revenue;
 use App\Models\BarRevenue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Client;
 
 class SalesController extends Controller
 {
@@ -199,14 +197,14 @@ class SalesController extends Controller
     }
 
     public function showIb(){
-        $products = PlayStation::all();
-        $expenses = Playstation::sum('net_cash');
-        $expensesToday = PlayStation::whereDate('created_at','=',Carbon::today())->sum('net_cash');
-        return view('ps', compact('products', 'expenses', 'expensesToday'));
+        $products = Inbet::all();
+        $expenses = Inbet::sum('net_cash');
+        $expensesToday = Inbet::whereDate('created_at','=',Carbon::today())->sum('net_cash');
+        return view('ib', compact('products', 'expenses', 'expensesToday'));
     }
 
     public function inbet(Request $request){
-        $netCash = $request->cashier_1 + $request->cashier2;
+        $netCash = $request->cashier_1 + $request->cashier_2;
 
         $ib = new Inbet();
         $ib->cashier_1 = $request->cashier_1;

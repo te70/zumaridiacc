@@ -39,8 +39,8 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Total amount</th>
-                    <th>Expenses</th>
+                    <th>Cashier 1</th>
+                    <th>Cashier 2</th>
                     <th>Net cash</th>
                     <th>Date created</th>
                   </tr>
@@ -49,8 +49,8 @@
                   @foreach($products as $key=>$product)
                     <tr>
                       <td>{{$key+1}}</td>
-                      <td style="text-transform: uppercase;">{{$product->cash}}</td>  
-                      <td style="text-transform: uppercase;">{{$product->expenses}}</td>
+                      <td style="text-transform: uppercase;">{{$product->cashier_1}}</td>  
+                      <td style="text-transform: uppercase;">{{$product->cashier_2}}</td>
                       <td>{{$product->net_cash}}</td>
                       <td>{{date('d-m-Y', strtotime($product->created_at));}}</td>
                     </tr>
