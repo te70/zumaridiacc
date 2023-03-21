@@ -14,9 +14,11 @@ Route::post('/sales/wines/expenses', [SalesController::class, 'winesExpenses'])-
 Route::get('/sales/wines-expenses', [SalesController::class, 'wExpenses'])->name('w.expenses');
 Route::post('/sales/bar', [SalesController::class, 'bar']);
 Route::post('/sales/rooms', [SalesController::class, 'rooms']);
-Route::post('/sales/ps', [SalesController::class, 'playStation']);
-Route::post('/sales/inbet', [SalesController::class, 'inbet']);
+Route::post('/sales/ps', [SalesController::class, 'playStation'])->name('sales.ps');
+Route::post('/sales/inbet', [SalesController::class, 'inbet'])->name('sales.ib');
 Route::get('/sales/product-list', [SalesController::class, 'productList']);
 Route::post('/sales/add-product', [SalesController::class, 'addProduct'])->name('add.product');
+Route::post('/sales/bar/add-product', [SalesController::class, 'bar'])->name('bar.product');
+Route::post('/sales/bar/expenses', [SalesController::class, 'barExpenses'])->name('bar.expenses');
 
 

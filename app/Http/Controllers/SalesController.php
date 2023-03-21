@@ -9,10 +9,9 @@ use App\Models\PlayStation;
 use App\Models\Room;
 use App\Models\Expense;
 use App\Models\Revenue;
+use App\Models\BarRevenue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Client;
 
 class SalesController extends Controller
 {
@@ -68,15 +67,18 @@ class SalesController extends Controller
         $wines->difference = $request->difference;
         $wines->total_amount = $request->total_amount;
         $wines->update();
-    
-        if($request->net_cash != null){
+   
+        // if(is_nan($request->gross_cash)){
+        //     return("No data");
+        // } else {
             $revenue = new Revenue();
             $revenue->expenses = $request->expenses;
-            $revenue->gross_cash = $request->grossCash;
+            $revenue->gross_cash = $request->gross_cash;
             $revenue->mpesa = $request->expenses;
             $revenue->net_cash = $request->net_cash;
             $revenue->save();
-        }
+        // }
+
         return response()->json([
             "code" => 200,
             "wines" => $wines,
@@ -86,44 +88,66 @@ class SalesController extends Controller
 
     public function showBar(){
         $products = Bar::all();
-        return view('bars', compact('products'));
+        $expenses = Expense::whereDate('created_at','=',Carbon::today()->toDateString())->sum('total_amount');
+        return view('bars', compact('products', 'expenses'));
+    }
+
+    public function barProductForm(){
+        return view('barform');
+    }
+
+    public function bExpensesForm(){
+        $products = Bar::all();
+        return view('bexpenses', compact('products'));
+    }
+
+    public function showBExpenses(){
+        $expenses = Expense::all();
+        $expensesToday = Expense::whereDate('created_at','=',Carbon::today())->get();
+        return view('barexpenses', compact('expenses','expensesToday'));
+    }
+
+    public function barExpenses(Request $request) {
+        $pieces = $request->amount;
+        $product_name = $request->product_name;
+        
+        $prices = Bar::where('product_name', '=', $product_name)->sum('price');
+        $total_amount = $prices * $pieces;
+        
+        $winesExpenses = new Expense();
+        $winesExpenses->item = $request->product_name;
+        $winesExpenses->department = $request->department;
+        $winesExpenses->amount = $request->amount;
+        $winesExpenses->total_amount = $total_amount;
+        $winesExpenses->save();
+
+        return redirect('/sales/bar/expenses/form');
     }
 
     public function bar(Request $request){
-        $request->validate([
-            'product_name' => 'required',
-            'open' => 'required',
-            'add' => 'required',
-            'total' => 'required',
-            'close' => 'required',
-            'close' => 'required',
-            'difference' => 'required',
-            'price' => 'required',
-            'total_amount' => 'required',
-            'expenses' => 'required',
-            'gross_cash' => 'required',
-            'mpesa' => 'required',
-            'net_cash' => 'required'
-        ]);
-
-        $bar = Bar::create([
-            "product_name" => $request->product_name,
-            "open" => $request->open,
-            "add" => $request->add,
-            "total" => $request->total,
-            "close" => $request->close,
-            "difference" => $request->difference, 
-            "price" => $request->price,
-            "total_amount" => $request->total_amount,
-            "expenses" => $request->expenses,
-            "gross_cash" => $request->gross_cash,
-            "mpesa" => $request->mpesa,
-            "net_cash" => $request->net_cash
-        ]);
-
+        $wines = Bar::find($request->id);
+        $wines->open = $request->close;
+        $wines->add = $request->add;
+        $wines->total = $request->total;
+        $wines->close = $request->close;
+        $wines->difference = $request->difference;
+        $wines->total_amount = $request->total_amount;
+        $wines->update();
+   
+        // if(is_nan($request->gross_cash)){
+        //     return("No data");
+        // } else {
+            $revenue = new BarRevenue();
+            $revenue->expenses = $request->expenses;
+            $revenue->gross_cash = $request->gross_cash;
+            $revenue->mpesa = $request->expenses;
+            $revenue->net_cash = $request->net_cash;
+            $revenue->save();
+        // }
         return response()->json([
             "code" => 200,
-            "data" => $bar
+            "wines" => $wines,
+            "revenue" => $revenue
         ]);
     }
 
@@ -133,81 +157,62 @@ class SalesController extends Controller
     }
 
     public function rooms(Request $request){
-        $request->validate([
-            'room_number' => 'required',
-            'receipt_number' => 'required',
-            'total_amount' => 'required',
-            'gross_cash' => 'required',
-            'mpesa' => 'required',
-            'net_cash' => 'required',
-            'room_price' => 'required',
-        ]);
+        $wines = Bar::find($request->id);
+        $wines->open = $request->close;
+        $wines->add = $request->add;
+        $wines->total = $request->total;
+        $wines->close = $request->close;
+        $wines->difference = $request->difference;
+        $wines->total_amount = $request->total_amount;
+        $wines->update();
 
-        $room = Room::create([
-            "room_number" => $request->room_number,
-            "receipt_number" => $request->receipt_number,
-            "total_amount" => $request->total_amount,
-            "room_price" => $request->room_price,
-            "gross_cash" => $request->gross_cash,
-            "mpesa" => $request->mpesa,
-            "net_cash" => $request->net_cash, 
-        ]);
-
-        return response()->json([
-            "code" => 200,
-            "data" => $room
-        ]);
+        return redirect('/sales/bar/expenses/form');
     }
 
     public function showPlaystation(){
         return view('playstation');
     }
 
+    public function showPs(){
+        $products = PlayStation::all();
+        $expenses = Playstation::sum('net_cash');
+        $expensesToday = PlayStation::whereDate('created_at','=',Carbon::today())->sum('net_cash');
+        return view('ps', compact('products', 'expenses', 'expensesToday'));
+    }
+
     public function playStation(Request $request){
-        $request->validate([
-            'games_played' => 'required',
-            'soda_sold' => 'required',
-            'sweets_sold' => 'required',
-            'cash' => 'required',
-            'expenses' => 'required',
-            'net_cash' => 'required',
-        ]);
+        $netCash = $request->total_sales - $request->expenses;
 
-        $playStation = PlayStation::create([
-            "games_played" => $request->games_played,
-            "soda_sold" => $request->soda_sold,
-            "sweets_sold" => $request->sweets_sold,
-            "cash" => $request->cash,
-            "expenses" => $request->expenses,
-            "net_cash" => $request->net_cash,
-        ]);
+        $ps = new PlayStation();
+        $ps->cash = $request->total_sales;
+        $ps->expenses= $request->expenses;
+        $ps->net_cash = $netCash;
+        $ps->save();
 
-        return response()->json([
-            "code" => 200,
-            "data" => $playStation
-        ]);
+        return redirect('/sales/ps');
     }
     
     public function showInbet(){
         return view('inbet');
     }
 
+    public function showIb(){
+        $products = Inbet::all();
+        $expenses = Inbet::sum('net_cash');
+        $expensesToday = Inbet::whereDate('created_at','=',Carbon::today())->sum('net_cash');
+        return view('ib', compact('products', 'expenses', 'expensesToday'));
+    }
+
     public function inbet(Request $request){
-        $request->validate([
-            'cash' => 'required',
-            'mpesa' => 'required',
-        ]);
+        $netCash = $request->cashier_1 + $request->cashier_2;
 
-        $inbet = Inbet::create([
-            "cash" => $request->cash,
-            "mpesa" => $request->mpesa,
-            
-        ]);
+        $ib = new Inbet();
+        $ib->cashier_1 = $request->cashier_1;
+        $ib->cashier_2= $request->cashier_2;
+        $ib->net_cash = $netCash;
+        $ib->save();
 
-        return response()->json([
-            "code" => 200,
-            "data" => $inbet
-        ]);
+        return redirect('/sales/ib');
     }
 
     public function productForm(){

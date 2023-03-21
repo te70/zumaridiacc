@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('play_stations', function (Blueprint $table) {
+        Schema::create('bar_revenues', function (Blueprint $table) {
             $table->id();
-            $table->string('cash');
             $table->string('expenses');
+            $table->string('gross_cash')->default('0');
+            $table->string('mpesa');
             $table->string('net_cash');
             $table->timestamps();
         });
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('play_stations');
+        Schema::dropIfExists('bar_revenues');
     }
 };

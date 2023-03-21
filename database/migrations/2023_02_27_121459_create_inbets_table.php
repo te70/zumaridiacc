@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('inbets', function (Blueprint $table) {
             $table->id();
-            $table->string('cash');
-            $table->string('mpesa');
+            $table->string('cashier_1');
+            $table->string('cashier_2');
+            $table->string('net_cash');
             $table->timestamps();
         });
     }

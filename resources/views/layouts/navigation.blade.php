@@ -24,11 +24,14 @@
                     <x-nav-link :href="route('showrooms')" :active="request()->routeIs('showrooms')">
                         {{ __('Rooms') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('showplaystation')" :active="request()->routeIs('showplaystation')">
+                    <x-nav-link :href="route('showps')" :active="request()->routeIs('showps')">
                         {{ __('Playstation') }}
                     </x-nav-link>
                     <x-nav-link :href="route('showinbet')" :active="request()->routeIs('showinbet')">
                         {{ __('Inbet') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('showinbet')" :active="request()->routeIs('showinbet')">
+                        {{ __('Users') }}
                     </x-nav-link>
                 </div>
             </div>

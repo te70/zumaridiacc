@@ -10,9 +10,6 @@ class PlayStation extends Model
     use HasFactory;
 
     protected $fillable = [
-       'games_played',
-       'soda_sold',
-       'sweets_sold',
        'cash',
        'expenses',
        'net_cash'
