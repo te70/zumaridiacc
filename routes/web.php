@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +35,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sales/inbet', [SalesController::class, 'showInbet'])->name('showinbet');
     Route::get('/sales/ib', [SalesController::class, 'showIb'])->name('showib');
+
+    Route::get('/rooms', [RoomController::class, 'index'])->name('showroom');
+    Route::get('/rooms/manage', [RoomController::class,'manage'])->name('manageroom');
+
+    Route::get('/staff', [StaffController::class, 'index'])->name('staff');
 });
 
 require __DIR__.'/auth.php';

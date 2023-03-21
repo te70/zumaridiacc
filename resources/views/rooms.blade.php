@@ -1,85 +1,100 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Bar') }}
-        </h2>
-    </x-slot>
-  
-    <div class="py-12">
-        <div class="" style="margin-left: 100px; margin-bottom:30px; margin-right: 150px;">
-            <div class="row" style="margin-top: 30px;">          
-              <div class="col-sm-3">
+@extends('layouts.app')
+@section('content')  
+    <div class="m-3">
+        <div class="container" style="margin-left: 250px; margin-bottom: 20px;">
+            <div class="row" style="margin-top: 30px;">  
+              <form method="POST" action="">        
+              <div class="">
                 <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                   <div class="card-body">
-                    <h4 class="card-text" style="text-align: center;">{{$products->count()}}</h4>
-                    <p class="card-title" style="font-size: 20px; text-align: center;">Products</p>
+                    <h5 class="card-title pb-2">Room information</h5>
+                    <div class="row">
+                      <div class="col">
+                        <label for="roomType" class="form-label" style="font-weight: bold;">Room type</label>
+                        <select class="form-select" aria-label="Default select example">
+                          <option selected>Select room type</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label for="roomNumber" class="form-label" style="font-weight: bold;">Room number</label>
+                        <select class="form-select" aria-label="Default select example">
+                          <option selected>Select room type</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row pt-4">
+                      <div class="col">
+                        <label for="checkIn" class="form-label" style="font-weight: bold;">Check in date</label>
+                        <input type="date" class="form-control" placeholder="Check in date">
+                      </div>
+                      <div class="col">
+                        <label for="checkOut" class="form-label" style="font-weight: bold;">Check out date</label>
+                        <input type="date" class="form-control" placeholder="Check out date">
+                      </div>
+                    </div>
+                    <div class="row pt-2">
+                      <div class="col">
+                        <h6>Total days:<span>2</span></h6>
+                        <h6>Price:<span>500</span></h6>
+                        <h6>Amount:<span>1000</span></h6>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-  
-    <div class="card" style="margin-left: 100px; margin-right: 100px; border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-        <div class="card-body">
-          <div class="table-responsive" style="padding-top: 20px; margin-left: 10px;">
-            <div class="btn-group mr-2" style="float: right;">
-                <a type="submit" class="btn btn-sm btn-outline-primary" href="{{route('winesexpenses')}}">Expenses</a>
-                <a type="submit" class="btn btn-sm btn-outline-primary" href="">Export</a>
+              <div class="pt-4">
+                <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                  <div class="card-body">
+                    <h5 class="card-title pb-2">Customer information</h5>
+                    <div class="row">
+                      <div class="col">
+                        <label for="firstName" class="form-label" style="font-weight: bold;">First name</label>
+                        <input type="text" class="form-control" placeholder="first name">
+                      </div>
+                      <div class="col">
+                        <label for="lastName" class="form-label" style="font-weight: bold;">Last name</label>
+                        <input type="text" class="form-control" placeholder="last name">
+                      </div>
+                    </div>
+                    <div class="row pt-4">
+                      <div class="col">
+                        <label for="contactNumber" class="form-label" style="font-weight: bold;">Contact number</label>
+                        <input type="text" class="form-control" placeholder="Contact number">
+                      </div>
+                    </div>
+                    <div class="row pt-4">
+                      <div class="col">
+                        <label for="customerEmail" class="form-label" style="font-weight: bold;">ID card type</label>
+                        <select class="form-select" aria-label="Default select example">
+                          <option selected>Select room type</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label for="selected ID" class="form-label" style="font-weight: bold;">Selected ID type</label>
+                        <input type="text" class="form-control" placeholder="Selected ID">
+                      </div>
+                    </div>
+                    <div class="row pt-4">
+                      <div class="col">
+                        <button class="btn btn-outline-primary btn-sm" role="submit">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h6 style="padding-bottom: 20px; color: #656b71;">Wines sale</h6>
-            <table class="table" id="wines-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Room</th>
-                    <th>Price</th>
-                    <th>Total Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($products as $key=>$product)
-                    <tr>
-                      <td>{{$key+1}}</td>
-                      <td>{{$product->product_name}}</td>  
-                      <td><input type="number" class="price w-50" name="price" id="price" data-price={{$product->price}} value={{$product->price}} data-id={{$product->id}} disabled></td>
-                      <td class="total_amount"></td>
-                    </tr>
-                  @endforeach
-                </tbody>
-              </table>
-        </div>
-      </div>
-    </div>
-  
-    <div class="" style="margin-left: 100px; margin-bottom:30px; margin-right: 150px;">
-      <div class="row" style="margin-top: 30px;">          
-        <div class="col-sm-3">
-          <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-            <div class="card-body">
-              <h4 class="card-text" style="text-align: center;">{{$products->count()}}</h4>
-              <p class="card-title" style="font-size: 20px; text-align: center;">Total amount</p>
+              </form>
             </div>
           </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-            <div class="card-body">
-              <h4 class="card-text" style="text-align: center;">{{$products->count()}}</h4>
-              <p class="card-title" style="font-size: 20px; text-align: center;">Expenses</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-            <div class="card-body">
-              <h4 class="card-text" style="text-align: center;">{{$products->count()}}</h4>
-              <p class="card-title" style="font-size: 20px; text-align: center;">Net cash</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  
+      
     <script>
     $(document).ready(function() {
         $('#wines-table').DataTable();
@@ -142,5 +157,5 @@
     });
     
     </script>
-  </x-app-layout>
+@endsection
   
