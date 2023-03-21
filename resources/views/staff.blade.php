@@ -80,54 +80,81 @@
     </div>
     {{-- Add modal --}}
     <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="addModalLabel">Add room</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @if ($errors->any())
-            <div class="alert alert-danger">
-                <strong>Oops</strong> There were some problems with your input. <br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        @if(Session::has('success'))
-            <div class="alert alert-success text-center">
-                {{Session::get('success')}}
-            </div>
-        @endif
-        
-        <form class="form-signin" action="" method="POST" enctype="multipart/form-data" novalidate>
-          @csrf
-          {{-- room number --}}
-          <label for="router_location" class="sr-only mb-2">Room Type</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Select room type</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          @error('router_location')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{$message}}</strong>
-          </span>
-          @enderror
-          {{-- room number --}}
-          <label for="router_location" class="sr-only mb-2">Room Number</label>
-          <input type="text" id="router_location" class="form-control @error('name') is-invalid @enderror" name="location" placeholder="Router Location">
-          @error('router_location')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{$message}}</strong>
-          </span>
-          @enderror
-          <button class="btn btn-sm btn-primary btn-block mb-2 mt-3" style="margin-top: 8px;" type="submit">Submit</button>
-        </form> 
+              <div class="row">
+                <div class="col">
+                  <label for="customerEmail" class="form-label" style="font-weight: bold;">Staff type</label>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>Select room type</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label for="customerEmail" class="form-label" style="font-weight: bold;">Shift</label>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>Select room type</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+              </div>
+                  <div class="row">
+                    <div class="col">
+                      <label for="firstName" class="form-label" style="font-weight: bold;">First name</label>
+                      <input type="text" class="form-control" placeholder="first name">
+                    </div>
+                    <div class="col">
+                      <label for="lastName" class="form-label" style="font-weight: bold;">Last name</label>
+                      <input type="text" class="form-control" placeholder="last name">
+                    </div>
+                  </div>
+                  <div class="row pt-4">
+                    <div class="col">
+                      <label for="contactNumber" class="form-label" style="font-weight: bold;">Contact number</label>
+                      <input type="text" class="form-control" placeholder="Contact number">
+                    </div>
+                  </div>
+                  <div class="row pt-4">
+                    <div class="col">
+                      <label for="customerEmail" class="form-label" style="font-weight: bold;">ID card type</label>
+                      <select class="form-select" aria-label="Default select example">
+                        <option selected>Select room type</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <label for="selected ID" class="form-label" style="font-weight: bold;">Selected ID type</label>
+                      <input type="text" class="form-control" placeholder="Selected ID">
+                    </div>
+                  </div>
+                  <div class="row pt-4">
+                    <div class="col">
+                      <label for="customerEmail" class="form-label" style="font-weight: bold;">Residential address</label>
+                      <input type="text" class="form-control" placeholder="Selected ID">
+                    </div>
+                    <div class="col">
+                      <label for="selected ID" class="form-label" style="font-weight: bold;">Salary</label>
+                      <input type="text" class="form-control" placeholder="Selected ID">
+                    </div>
+                  </div>
+                  <div class="row pt-4">
+                    <div class="col">
+                      <button class="btn btn-outline-primary btn-sm" role="submit">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div> 
       </div>
     </div>
   </div>
