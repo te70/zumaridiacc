@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SalesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::post('/sales/add-product', [SalesController::class, 'addProduct'])->name(
 Route::post('/sales/bar/add-product', [SalesController::class, 'bar'])->name('bar.product');
 Route::post('/sales/bar/expenses', [SalesController::class, 'barExpenses'])->name('bar.expenses');
 
+Route::post('/add/rooms', [RoomController::class, 'addRooms'])->name('addrooms');
 

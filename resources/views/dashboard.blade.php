@@ -2,7 +2,7 @@
 @section('content')
     <div class="m-3">
         <div class="container">
-            <div class="row pt-2" style="margin-left: 150px;">          
+            <div class="row pt-2" style="margin-left: 250px;">          
               <div class="col-xs-8 col-sm-3 col-md-3 pb-2">
                 <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                   <div class="card-body">
@@ -123,6 +123,42 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="container" >
+            <div class="row pt-2" style="margin-left: 250px;">
+              <div class="card" style="border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                <div class="card-body">
+              <div class="table-responsive">
+                <div class="btn-group mr-2" style="float: right;">
+                  <a type="submit" class="btn btn-sm btn-outline-primary" href="">View all logs</a>
+              </div>
+                <h6 style="padding-bottom: 20px; font-size: 18px;">Today's logs</h6>
+                <table class="table table-sm" id="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Created</th>
+                    </tr>
+                  </thead>
+                  <tbody> 
+                    {{-- @foreach($fingerprintsLive as $key=>$fingerprint) --}}
+                    {{-- @if($fingerprint->mac) --}}
+                      <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                    </tr>
+                    {{-- @endif --}}
+                    {{-- @endforeach --}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
           </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>

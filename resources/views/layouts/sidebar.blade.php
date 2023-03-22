@@ -23,45 +23,69 @@
     @endauth
 </nav>
   
-  <div class="container-fluid">
+  <div class="d-flex">
     <div class="row">
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="sidebar-sticky pt-3" style="background-color: #293042;">
           <ul class="nav flex-column" style="font-size: 15px;">
             <li class="nav-item">
-              <a class="nav-link active" href="{{route('dashboard')}}">
-                <span data-feather="home"></span>
+              <a class="nav-link active" href="{{route('dashboard')}}" style="font-size: 18px;">
+                <span class="bi bi-speedometer2 pe-2"></span>
                 Dashboard 
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showwines')}}">
-                <span data-feather="layers"></span>
+              <a class="nav-link" href="{{route('showroom')}}" style="font-size: 18px;">
+                <span class="bi bi-bookmark pe-2"></span>
+                Reservations
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('manageroom')}}" style="font-size: 18px;">
+                <span class="bi bi-houses pe-2"></span>
+                Manage rooms
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('showwines')}}" style="font-size: 18px;">
+                <span class="bi bi-cup-straw pe-2"></span>
                 Wines
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showbar')}}">
-                <span data-feather="bar-chart-2"></span>
+              <a class="nav-link" href="{{route('showbar')}}" style="font-size: 18px;">
+                <span class="bi bi-suit-spade pe-2"></span>
                 Bar
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showps')}}">
-                <span data-feather="users"></span>
+              <a class="nav-link" href="{{route('showps')}}" style="font-size: 18px;">
+                <span class="bi bi-controller pe-2"></span>
                 Playstation
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showib')}}">
-                <span data-feather="sliders"></span>
+              <a class="nav-link" href="{{route('showib')}}" style="font-size: 18px;">
+                <span class="bi bi-dpad pe-2"></span>
                 Inbet
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showinbet')}}">
-                <span data-feather="sliders"></span>
+              <a class="nav-link" href="{{route('staff')}}" style="font-size: 18px;">
+                <span class="bi bi-person-badge pe-2"></span>
+                Manage staff
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('showinbet')}}" style="font-size: 18px;">
+                <span class="bi bi-people pe-2"></span>
                 Users
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('manageroom')}}" style="font-size: 18px;">
+                <span class="bi bi-sliders2 pe-2"></span>
+                Settings
               </a>
             </li>
           </ul>
