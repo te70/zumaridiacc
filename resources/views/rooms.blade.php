@@ -45,7 +45,7 @@
                       <div class="col">
                         <h6>Total days:<span id="days"></span></h6>
                         <h6>Price:<span id="price"></span></h6>
-                        <h6>Amount:<span id="total_price"></span></h6>
+                        <h6>Amount:<span id="total_price">{{}}</span></h6>
                       </div>
                     </div>
                   </div>

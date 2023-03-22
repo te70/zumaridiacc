@@ -23,16 +23,16 @@
             </tr>
             </thead>
             <tbody> 
-            {{-- @foreach($fingerprintsLive as $key=>$fingerprint) --}}
+            @foreach($staffs as $key=>$staff)
             {{-- @if($fingerprint->mac) --}}
                 <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td><span class="badge rounded-pill text-bg-warning">6</span></td>
-                <td>7</td>
+                <td>{{$key+1}}</td>
+                <td style="text-transform: uppercase;">{{$staff->first_name.' '.$staff->last_name}}</td>
+                <td style="text-transform: uppercase;">{{$staff->staff_type}}</td>
+                <td style="text-transform: uppercase;">{{$staff->shift}}</td>
+                <td>{{date('d-m-Y', strtotime($staff->created_at))}}</td>
+                <td style="text-transform: uppercase;"><span class="badge rounded-pill text-bg-warning">{{$staff->shift}}</span></td>
+                <td>{{date('d-m-Y', strtotime($staff->created_at))}}</td>
                 <td><div class="dropup">
                     <a href="#" role="button" data-bs-toggle="dropdown" >
                       <i style="color: black;" class="bi bi-three-dots-vertical"></i>
@@ -49,7 +49,7 @@
                   </div></td>
             </tr>
             {{-- @endif --}}
-            {{-- @endforeach --}}
+            @endforeach
             </tbody>
         </table>
         </div>
@@ -87,65 +87,66 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+              <form method="POST" action="{{route('addstaff')}}">
               <div class="row">
                 <div class="col">
                   <label for="customerEmail" class="form-label" style="font-weight: bold;">Staff type</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Select room type</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="form-select" aria-label="Default select example"  name="staff_type">
+                    <option selected>Select Staff type</option>
+                      <option value="rooms">Rooms</option>
+                      <option value="bar">Bar</option>
+                      <option value="wines">Wines</option>
+                      <option value="playstation">Ps</option>
+                      <option value="inbet">Inbet</option>
                   </select>
                 </div>
                 <div class="col">
                   <label for="customerEmail" class="form-label" style="font-weight: bold;">Shift</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Select room type</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="form-select" aria-label="Default select example" name="shift">
+                    <option selected>Select shift</option>
+                    <option value="day">Day</option>
+                    <option value="night">Night</option>
                   </select>
                 </div>
               </div>
                   <div class="row">
                     <div class="col">
                       <label for="firstName" class="form-label" style="font-weight: bold;">First name</label>
-                      <input type="text" class="form-control" placeholder="first name">
+                      <input type="text" class="form-control" placeholder="first name" name="first_name">
                     </div>
                     <div class="col">
                       <label for="lastName" class="form-label" style="font-weight: bold;">Last name</label>
-                      <input type="text" class="form-control" placeholder="last name">
+                      <input type="text" class="form-control" placeholder="last name" name="last_name">
                     </div>
                   </div>
                   <div class="row pt-4">
                     <div class="col">
                       <label for="contactNumber" class="form-label" style="font-weight: bold;">Contact number</label>
-                      <input type="text" class="form-control" placeholder="Contact number">
+                      <input type="text" class="form-control" placeholder="Contact number" name="contact_number">
                     </div>
                   </div>
                   <div class="row pt-4">
                     <div class="col">
                       <label for="customerEmail" class="form-label" style="font-weight: bold;">ID card type</label>
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>Select room type</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <select class="form-select" aria-label="Default select example" name="id_type">
+                        <option selected>Select ID type</option>
+                        <option value="id">ID number</option>
+                        <option value="passport">Passport number</option>
                       </select>
                     </div>
                     <div class="col">
                       <label for="selected ID" class="form-label" style="font-weight: bold;">Selected ID type</label>
-                      <input type="text" class="form-control" placeholder="Selected ID">
+                      <input type="text" class="form-control" placeholder="Selected ID" name="id_number">
                     </div>
                   </div>
                   <div class="row pt-4">
                     <div class="col">
                       <label for="customerEmail" class="form-label" style="font-weight: bold;">Residential address</label>
-                      <input type="text" class="form-control" placeholder="Selected ID">
+                      <input type="text" class="form-control" placeholder="Residential address" name="residential_address">
                     </div>
                     <div class="col">
                       <label for="selected ID" class="form-label" style="font-weight: bold;">Salary</label>
-                      <input type="text" class="form-control" placeholder="Selected ID">
+                      <input type="text" class="form-control" placeholder="Salary" name="salary">
                     </div>
                   </div>
                   <div class="row pt-4">
@@ -154,7 +155,8 @@
                     </div>
                   </div>
                 </div>
-              </div> 
+              </form>
+            </div> 
       </div>
     </div>
   </div>
