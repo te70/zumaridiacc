@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('content')  
+<main>
     <div class="m-3">
         <div class="container" style="margin-left: 250px; margin-bottom: 20px;">
             <div class="row" style="margin-top: 30px;">  
-              <form method="POST" action="">        
+              {{-- <form method="POST" action="">         --}}
               <div class="">
                 <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                   <div class="card-body">
@@ -11,38 +12,40 @@
                     <div class="row">
                       <div class="col">
                         <label for="roomType" class="form-label" style="font-weight: bold;">Room type</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" aria-label="Default select example" name="room_type" id="room_type">
                           <option selected>Select room type</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                          @foreach($products as $product)
+                            <option value="{{$product->room_type}}">{{$product->room_type}}</option>
+                          @endforeach
+                          <option value="test">Test</option>
                         </select>
                       </div>
                       <div class="col">
                         <label for="roomNumber" class="form-label" style="font-weight: bold;">Room number</label>
-                        <select class="form-select" aria-label="Default select example">
-                          <option selected>Select room type</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                        <select class="form-select" aria-label="Default select example" name="room_number" id="room_number">
+                          <option selected>Select room number</option>
+                          @foreach($products as $product)
+                            <option value="{{$product->room_number}}">{{$product->room_number}}</option>
+                          @endforeach
+                          
                         </select>
                       </div>
                     </div>
                     <div class="row pt-4">
                       <div class="col">
                         <label for="checkIn" class="form-label" style="font-weight: bold;">Check in date</label>
-                        <input type="date" class="form-control" placeholder="Check in date">
+                        <input type="date" class="form-control" placeholder="Check in date" id="check_in_date">
                       </div>
                       <div class="col">
                         <label for="checkOut" class="form-label" style="font-weight: bold;">Check out date</label>
-                        <input type="date" class="form-control" placeholder="Check out date">
+                        <input type="date" class="form-control" placeholder="Check out date" id="check_out_date">
                       </div>
                     </div>
                     <div class="row pt-2">
                       <div class="col">
-                        <h6>Total days:<span>2</span></h6>
-                        <h6>Price:<span>500</span></h6>
-                        <h6>Amount:<span>1000</span></h6>
+                        <h6>Total days:<span id="days"></span></h6>
+                        <h6>Price:<span id="price"></span></h6>
+                        <h6>Amount:<span id="total_price"></span></h6>
                       </div>
                     </div>
                   </div>
@@ -55,32 +58,31 @@
                     <div class="row">
                       <div class="col">
                         <label for="firstName" class="form-label" style="font-weight: bold;">First name</label>
-                        <input type="text" class="form-control" placeholder="first name">
+                        <input type="text" class="form-control" placeholder="first name" id="first_name">
                       </div>
                       <div class="col">
                         <label for="lastName" class="form-label" style="font-weight: bold;">Last name</label>
-                        <input type="text" class="form-control" placeholder="last name">
+                        <input type="text" class="form-control" placeholder="last name" id="last_name">
                       </div>
                     </div>
                     <div class="row pt-4">
                       <div class="col">
                         <label for="contactNumber" class="form-label" style="font-weight: bold;">Contact number</label>
-                        <input type="text" class="form-control" placeholder="Contact number">
+                        <input type="text" class="form-control" placeholder="Contact number" id="contact_number">
                       </div>
                     </div>
                     <div class="row pt-4">
                       <div class="col">
                         <label for="customerEmail" class="form-label" style="font-weight: bold;">ID card type</label>
-                        <select class="form-select" aria-label="Default select example">
-                          <option selected>Select room type</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                        <select class="form-select" aria-label="Default select example" id="contact_type">
+                          <option selected>Select contact type</option>
+                          <option value="ID">ID</option>
+                          <option value="Passport">Passport</option>
                         </select>
                       </div>
                       <div class="col">
                         <label for="selected ID" class="form-label" style="font-weight: bold;">Selected ID type</label>
-                        <input type="text" class="form-control" placeholder="Selected ID">
+                        <input type="text" class="form-control" placeholder="Selected ID" id="ID_number">
                       </div>
                     </div>
                     <div class="row pt-4">
@@ -91,71 +93,87 @@
                   </div>
                 </div>
               </div>
-              </form>
+              {{-- </form> --}}
             </div>
           </div>
-      
-    <script>
+    </div>
+</main>
+    {{-- <script>
     $(document).ready(function() {
         $('#wines-table').DataTable();
+
+        console.log('....')
     });
-  
-    var addStockInputs = document.querySelectorAll('.add-stock');
-    addStockInputs.forEach(function(input, index) {
-        input.addEventListener('input', function() {
-            var productId = this.dataset.id;
-            var addStock = parseInt(input.value);
-            var openStock = parseInt(parseInt(document.getElementsByName("open_stock")[0].value));
-            var totalStock = openStock + addStock;
-            this.parentNode.nextSibling.nextSibling.textContent = totalStock;         
-        });
-    });
-    
-    var closeStockInputs = document.querySelectorAll('.close-stock');
-    closeStockInputs.forEach(function(input, index) {
-        input.addEventListener('input', function() {
-            var productId = this.dataset.id;
-            var openStock = parseInt(parseInt(document.getElementsByName("open_stock")[0].value));
-            var addStock = parseInt(addStockInputs[index].value);
-            var closeStock = parseInt(input.value);
-            var totalStock = openStock + addStock;
-            var difference = totalStock - closeStock;
-            this.parentNode.nextSibling.nextSibling.textContent = difference; 
-            var price = parseFloat(this.getAttribute('data-price'));
-            var totalAmount = difference * price;
-            this.parentNode.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent = totalAmount;
-             $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-              });
-              $.ajax({
-                url: '/api/sales/wines',
-                type: 'POST',
-                data: {
-                  product_id: productId,
-                  open: openStock,
-                  total: totalStock,
-                  close: closeStock,
-                  difference: difference,
-                  price: price,
-                  total_amount: totalAmount,
-                  expenses: expenses,
-                  gross_cash: grossCash,
-                  mpesa: mpesa,
-                  net_cash: netCash
-                },
-                success: function(data) {
-                  if(data.length == 0){
-                  console.log("No data returned");
-                  } else {
-                  console.log("data is returned");
-                  }
-                }
-              });
-        });
-    });
-    
+    </script> --}}
+    <script>
+      // get input values
+      var roomType = document.getElementById('room_type');
+      console.log(roomType);
+      var roomNumber = document.getElementById('room_number').value;
+      var checkInDate = new Date(document.getElementById('check_in_date').value);
+      var checkOutDate = new Date(document.getElementById('check_out_date').value);
+      var firstName = document.getElementById('first_name').value;
+      console.log(firstName);
+      var lastName = document.getElementById('last_name').value;
+      var contact_number = document.getElementById('contanct_number').value;
+      var contact_type = document.getElementById('contact_type').value;
+      var id_number = document.getElementById('ID_number');
+      
+      // calculate number of days
+      var numberOfDays = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+      // document.getElementById('days').innerHTML = numberOfDays;
+
+      // calculate price based on room type
+      var price;
+      if (roomType === 'economy') {
+        price = 500;
+      } else if (roomType === 'double_bed') {
+        price = 800;
+      } else if (roomType === 'executive') {
+        price = 1000;
+      } else {
+        // handle unknown room type
+        price = 0;
+      }
+      // document.getElementById('price').innerHTML = price;
+      // calculate total price
+      var totalPrice = numberOfDays * price;
+      console.log(totalPrice);
+      // display total price to user
+      document.getElementById('total_price').innerHTML = totalPrice;
+
+      var formData = {
+        'room_type': roomType,
+        'room_number': roomNumber,
+        'check_in_date' : checkInDate,
+        'check_out_date' : checkOutDate,
+        'firstName' : firstName,
+        'lastName' : lastName,
+        'contact_number': contact_number,
+        'contact_type': contact_type,
+        'id_number': id_number,
+        'number_of_days': numberOfDays,
+        'total_pr;ice': totalPrice
+      };
+
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]')
+        }
+      });
+
+      $.ajax({
+        type: 'POST',
+        url: '/api/rooms/manage',
+        data: formData,
+        dataType: 'json',
+        success: function(data){
+          console.log(data);
+        },
+        error: function(data){
+          console.log('Error', data);
+        }
+      });
     </script>
 @endsection
   

@@ -13,6 +13,29 @@ class RoomController extends Controller
     }
 
     public function manage(){
-        return view('mrooms');
+        $rooms = Room::all();
+        return view('mrooms', compact('rooms'));
+    }
+
+    public function addRooms(Request $request){
+        $room_price = '';
+
+        if($request->room_type == 'economy'){
+            $room_price = '500';
+        } else if($request->room_type == 'double_bed'){
+            $room_price ='800';
+        } else if($request->room_type == 'executive'){
+            $room_price = '1000';
+        } else{
+            $room_price = 'NA';
+        }
+
+        $addRooms = new Room();
+        $addRooms->room_number = $request->room_number;
+        $addRooms->room_type = $request->room_type;
+        $addRooms->room_price = $room_price;
+        $addRooms->save();
+
+        return redirect('/rooms/manage');
     }
 }

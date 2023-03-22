@@ -6,6 +6,7 @@
         <div class="card-body">
             <div class="btn-group mr-2" style="float: right;">
                 <a type="submit" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add rooms</a>
+                {{-- <a type="submit" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add rooms</a> --}}
             </div>
             <h5 class="card-title">Manage rooms</h5>
         <div class="table-responsive pt-4">
@@ -14,7 +15,7 @@
             <tr>
                 <th>#</th>
                 <th>Room No</th>
-                <th>Mac Type</th>
+                <th>RoomType</th>
                 <th>Status</th>
                 <th>Check in</th>
                 <th>Check out</th>
@@ -23,16 +24,16 @@
             </tr>
             </thead>
             <tbody> 
-            {{-- @foreach($fingerprintsLive as $key=>$fingerprint) --}}
+            @foreach($rooms as $key=>$room)
             {{-- @if($fingerprint->mac) --}}
                 <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
+                <td>{{$key+1}}</td>
+                <td>{{$room->room_number}}</td>
+                <td>{{$room->room_type}}</td>
                 <td>4</td>
                 <td>5</td>
                 <td>6</td>
-                <td>7</td>
+                <td>{{date('d-m-Y', strtotime($room->created_at))}}</td>
                 <td><div class="dropup">
                     <a href="#" role="button" data-bs-toggle="dropdown" >
                       <i style="color: black;" class="bi bi-three-dots-vertical"></i>
@@ -49,7 +50,7 @@
                   </div></td>
             </tr>
             {{-- @endif --}}
-            {{-- @endforeach --}}
+            @endforeach
             </tbody>
         </table>
         </div>
@@ -103,25 +104,25 @@
             </div>
         @endif
         
-        <form class="form-signin" action="" method="POST" enctype="multipart/form-data" novalidate>
+        <form class="form-signin" action="{{route('addrooms')}}" method="POST" enctype="multipart/form-data" novalidate>
           @csrf
           {{-- room number --}}
-          <label for="router_location" class="sr-only mb-2">Room Type</label>
-          <select class="form-select" aria-label="Default select example">
+          <label for="room_type" class="sr-only mb-2">Room Type</label>
+          <select class="form-select" aria-label="Default select example" name="room_type">
             <option selected>Select room type</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="economy">Economy</option>
+            <option value="double_bed">Double bed</option>
+            <option value="executive">Executive</option>
           </select>
-          @error('router_location')
+          @error('room_type')
           <span class="invalid-feedback" role="alert">
               <strong>{{$message}}</strong>
           </span>
           @enderror
           {{-- room number --}}
-          <label for="router_location" class="sr-only mb-2">Room Number</label>
-          <input type="text" id="router_location" class="form-control @error('name') is-invalid @enderror" name="location" placeholder="Router Location">
-          @error('router_location')
+          <label for="room_number" class="sr-only mb-2">Room Number</label>
+          <input type="text" id="room_number" class="form-control @error('room_number') is-invalid @enderror" name="room_number" placeholder="Room number">
+          @error('room_number')
           <span class="invalid-feedback" role="alert">
               <strong>{{$message}}</strong>
           </span>
