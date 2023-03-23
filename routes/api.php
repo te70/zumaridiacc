@@ -27,3 +27,5 @@ Route::post('/add/rooms', [RoomController::class, 'addRooms'])->name('addrooms')
 
 Route::post('/add/staff', [StaffController::class, 'store'])->name('addstaff');
 
+Route::post('/add/reservation', [RoomController::class, 'reserveRoom'])->name('reserveroom');
+

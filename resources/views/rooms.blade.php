@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('alert')
 @section('content')  
 <main>
     <div class="m-3">
@@ -41,11 +42,16 @@
                         <input type="date" class="form-control" placeholder="Check out date" id="check_out_date">
                       </div>
                     </div>
-                    <div class="row pt-2">
+                    <div class="row pt-4">
                       <div class="col">
                         <h6>Total days:<span id="days"></span></h6>
+                      </div>
+                      <div class="col">
                         <h6>Price:<span id="price"></span></h6>
-                        <h6>Amount:<span id="total_price">{{}}</span></h6>
+                      </div>
+                      <div class="col">
+                        <h6>Amount:<span id="total_price"></span></h6>
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -87,7 +93,7 @@
                     </div>
                     <div class="row pt-4">
                       <div class="col">
-                        <button class="btn btn-outline-primary btn-sm" role="submit">Submit</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="submitData()">Submit</button>
                       </div>
                     </div>
                   </div>
@@ -97,83 +103,113 @@
             </div>
           </div>
     </div>
+    <div class="modal fade" id="reservationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addModalLabel">Customer details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col">
+                    <p class="" style="font-weight: bold;">First name: <span>Test Account</span></p>
+                    <p class="" style="font-weight: bold;">Contact: <span>0722000000</span></p>
+                    <p class="" style="font-weight: bold;">ID card type: <span>National ID</span></p>
+                    <p class="" style="font-weight: bold;">ID card number: <span>11227654</span></p>
+                    <p class="" style="font-weight: bold;">Amount paid: <span>500</span></p>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+  </div>
 </main>
-    {{-- <script>
-    $(document).ready(function() {
-        $('#wines-table').DataTable();
-
-        console.log('....')
-    });
-    </script> --}}
     <script>
-      // get input values
-      var roomType = document.getElementById('room_type');
-      console.log(roomType);
-      var roomNumber = document.getElementById('room_number').value;
-      var checkInDate = new Date(document.getElementById('check_in_date').value);
-      var checkOutDate = new Date(document.getElementById('check_out_date').value);
-      var firstName = document.getElementById('first_name').value;
-      console.log(firstName);
-      var lastName = document.getElementById('last_name').value;
-      var contact_number = document.getElementById('contanct_number').value;
-      var contact_type = document.getElementById('contact_type').value;
-      var id_number = document.getElementById('ID_number');
-      
-      // calculate number of days
-      var numberOfDays = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
-      // document.getElementById('days').innerHTML = numberOfDays;
+      var checkOutDate = document.getElementById("check_out_date");
 
-      // calculate price based on room type
-      var price;
-      if (roomType === 'economy') {
-        price = 500;
-      } else if (roomType === 'double_bed') {
-        price = 800;
-      } else if (roomType === 'executive') {
-        price = 1000;
-      } else {
-        // handle unknown room type
-        price = 0;
+      checkOutDate.addEventListener("change", ()=>{
+        var roomType = document.getElementById("room_type").value;
+        var roomNumber = document.getElementById("room_number").value;
+        var checkInDate = new Date(document.getElementById("check_in_date").value);
+        var checkOutDate = new Date(document.getElementById("check_out_date").value);
+        var days = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
+        // var pricePerDay = 100; // Replace with the actual price per day
+        var pricePerDay;
+          if (roomType === 'economy') {
+            pricePerDay = 500;
+          } else if (roomType === 'double_bed') {
+            pricePerDay = 800;
+          } else if (roomType === 'executive') {
+            pricePerDay = 1000;
+          } else {
+            // handle unknown room type
+            pricePerDay = 0;
+          }
+        var totalPrice = days * pricePerDay;
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("price").innerHTML = pricePerDay;
+        document.getElementById("total_price").innerHTML = totalPrice.toFixed(2);
+      })
+
+      function submitData(){
+        var firstName = document.getElementById('first_name').value;
+        var lastName = document.getElementById('last_name').value;
+        var contact_number = document.getElementById('contact_number').value;
+        var contact_type = document.getElementById('contact_type').value;
+        var id_number = document.getElementById('ID_number').value;
+        var roomType = document.getElementById('room_type').value;
+        var roomNumber = document.getElementById('room_number').value;
+        var checkInDate = new Date(document.getElementById("check_in_date").value);
+        var checkOutDate = new Date(document.getElementById("check_out_date").value);
+        var days = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
+        var pricePerDay;
+          if (roomType === 'economy') {
+            pricePerDay = 500;
+          } else if (roomType === 'double_bed') {
+            pricePerDay = 800;
+          } else if (roomType === 'executive') {
+            pricePerDay = 1000;
+          } else {
+            // handle unknown room type
+            pricePerDay = 0;
+          }
+        var totalPrice = days * pricePerDay;
+
+        var formData = {
+          'room_type':roomType,
+          'room_number': roomNumber,
+          'check_in_date' : checkInDate,
+          'check_out_date' : checkOutDate,
+          'number_of_days': days,
+          'price_per_day': pricePerDay,
+          'total_price': totalPrice,
+          'first_name' : firstName,
+          'last_name' : lastName,
+          'contact_number': contact_number,
+          'contact_type': contact_type,
+          'id_number': id_number,
+        };
+
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]')
+          }
+        });
+
+        $.ajax({
+          type: 'POST',
+          url: '/api/add/reservation',
+          data: formData,
+          dataType: 'json',
+          success: function(data){
+            alert('success');
+          },
+          error: function(data){
+            alert('errror');
+          }
+        });
       }
-      // document.getElementById('price').innerHTML = price;
-      // calculate total price
-      var totalPrice = numberOfDays * price;
-      console.log(totalPrice);
-      // display total price to user
-      document.getElementById('total_price').innerHTML = totalPrice;
-
-      var formData = {
-        'room_type': roomType,
-        'room_number': roomNumber,
-        'check_in_date' : checkInDate,
-        'check_out_date' : checkOutDate,
-        'firstName' : firstName,
-        'lastName' : lastName,
-        'contact_number': contact_number,
-        'contact_type': contact_type,
-        'id_number': id_number,
-        'number_of_days': numberOfDays,
-        'total_pr;ice': totalPrice
-      };
-
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]')
-        }
-      });
-
-      $.ajax({
-        type: 'POST',
-        url: '/api/rooms/manage',
-        data: formData,
-        dataType: 'json',
-        success: function(data){
-          console.log(data);
-        },
-        error: function(data){
-          console.log('Error', data);
-        }
-      });
     </script>
 @endsection
   

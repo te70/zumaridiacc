@@ -13,16 +13,18 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->string('room_number');
-            $table->string('room_type');
-            $table->string('room_price');
-            $table->string('check_in_date');
-            $table->string('check_out_date');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('contanct_number');
-            $table->string('id_card_type');
-            $table->string('id_number');
+            $table->string('room_number')->nullable();
+            $table->string('room_type')->nullable();
+            $table->string('room_price')->nullable();
+            $table->string('check_in_date')->nullable();
+            $table->string('check_out_date')->nullable();
+            $table->string('number_of_days')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('contact_number')->nullable();
+            $table->string('contact_type')->nullable();
+            $table->string('id_number')->nullable();
+            $table->string('total_price')->nullable();
             $table->timestamps();
         });
     }
