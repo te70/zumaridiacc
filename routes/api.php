@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,8 @@ Route::post('/sales/bar/add-product', [SalesController::class, 'bar'])->name('ba
 Route::post('/sales/bar/expenses', [SalesController::class, 'barExpenses'])->name('bar.expenses');
 
 Route::post('/add/rooms', [RoomController::class, 'addRooms'])->name('addrooms');
+
+Route::post('/add/staff', [StaffController::class, 'store'])->name('addstaff');
+
+Route::post('/add/reservation', [RoomController::class, 'reserveRoom'])->name('reserveroom');
 

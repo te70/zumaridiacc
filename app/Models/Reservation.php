@@ -15,10 +15,17 @@ class Reservation extends Model
         'room_price',
         'check_in_date',
         'check_out_date',
+        'number_of_days',
         'first_name',
         'last_name',
         'contact_number',
-        'id_card_type',
-        'id_number'
+        'contact_type',
+        'id_number',
+        'total_price',
+        'room_id',
     ];
+
+    public function rooms(){
+        return $this->belongsTo(Room::class, 'room_id');
+    }
 }

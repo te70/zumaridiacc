@@ -1,10 +1,5 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Bar') }}
-        </h2>
-    </x-slot>
-  
+@extends('layouts.app')
+@section('content')  
     <div class="py-12">
         <div class="" style="margin-left: 250px; margin-bottom:30px; margin-right: 150px;">
             <div class="row" style="margin-top: 30px;">          
@@ -123,5 +118,5 @@
     });
 
     </script>
-  </x-app-layout>
+@endsection
   

@@ -6,8 +6,11 @@ use App\Models\Revenue;
 use App\Models\BarRevenue;
 use App\Models\PlayStation;
 use App\Models\Inbet;
+use App\Models\Reservation;
 use App\Models\Room;
+use App\Models\Staff;
 use App\Models\Wines;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -25,20 +28,25 @@ class DashboardController extends Controller
         $barRevenue = BarRevenue::whereBetween('created_at', [$weekStartDate, $weekEndDate])->sum('net_cash');
         $psRevenue = PlayStation::whereBetween('created_at', [$weekStartDate, $weekEndDate])->sum('net_cash');
         $ibRevenue = Inbet::whereBetween('created_at', [$weekStartDate, $weekEndDate])->sum('net_cash');
-        $roomRevenue = Room::whereBetween('created_at', [$weekStartDate, $weekEndDate])->sum('net_cash');
-
-        $winesChart = Revenue::select('id', 'created_at')
-                        ->get()
-                        ->groupBy(function($date) {
-                        return Carbon::parse($date->created_at)->format('Y-m-d'); // grouping by date
-                    });
-        $labels = [];
-        $data = [];
-        foreach($winesChart as $key=>$group){
-            $labels[] = $key;
-            $data[] = $group->count();
-        }
-        return view('dashboard', compact('winesRevenue', 'barRevenue', 'psRevenue', 'ibRevenue', 'labels','data'));
+        $roomRevenue = Reservation::whereBetween('created_at', [$weekStartDate, $weekEndDate])->sum('total_price');
+        $rooms = Room::all();
+        $reservations = Reservation::all();
+        $staff = Staff::all();
+        $bookedRooms = Reservation::all()->where('check_in_date', '>=', $now && 'check_out_date', '<=', $now);
+        $wines = Wines::all();
+        $users = User::all();
+        // $winesChart = Revenue::select('id', 'created_at')
+        //                 ->get()
+        //                 ->groupBy(function($date) {
+        //                 return Carbon::parse($date->created_at)->format('Y-m-d'); // grouping by date
+        //             });
+        // $labels = [];
+        // $data = [];
+        // foreach($winesChart as $key=>$group){
+        //     $labels[] = $key;
+        //     $data[] = $group->count();
+        // }
+        return view('dashboard', compact('rooms', 'reservations', 'staff', 'wines','bookedRooms','winesRevenue', 'barRevenue', 'psRevenue', 'ibRevenue', 'roomRevenue', 'users'));
     }
 
     /**

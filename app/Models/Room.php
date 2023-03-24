@@ -14,4 +14,9 @@ class Room extends Model
         'room_type',
         'room_price'
     ];
+
+
+    public function reservations(){
+        return $this->hasMany(Reservation::class, 'room_number');
+    }
 }
