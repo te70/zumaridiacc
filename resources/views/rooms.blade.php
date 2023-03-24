@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@include('alert')
 @section('content')  
 <main>
     <div class="m-3">

@@ -1,10 +1,5 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Inbet') }}
-        </h2>
-    </x-slot>
-
+@extends('layouts.app')
+@section('content')
     <div class="py-12">
     <div class="card" style="margin-left: 250px; margin-right: 100px; border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
         <div class="card-body">
@@ -56,4 +51,4 @@
         $('#wines-table').DataTable();
     });
     </script>
-</x-app-layout>
+@endsection

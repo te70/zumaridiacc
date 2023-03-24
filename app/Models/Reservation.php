@@ -21,6 +21,11 @@ class Reservation extends Model
         'contact_number',
         'contact_type',
         'id_number',
-        'total_price'
+        'total_price',
+        'room_id',
     ];
+
+    public function rooms(){
+        return $this->belongsTo(Room::class, 'room_id');
+    }
 }

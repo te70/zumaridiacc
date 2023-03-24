@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('contact_type')->nullable();
             $table->string('id_number')->nullable();
             $table->string('total_price')->nullable();
+            $table->foreignId('room_id')->constrained('rooms');
             $table->timestamps();
         });
     }

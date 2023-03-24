@@ -1,6 +1,7 @@
-<x-app-layout>
+@extends('layouts.app')
+@section('content')
     <div class="m-3">
-        <div class="container" style="">
+        <div class="container pb-4" style="margin-left: 200px;">
             <div class="row" style="margin-top: 30px;">          
               <div class="col-xs-8 col-sm-3 col-md-3">
                 <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
@@ -12,7 +13,7 @@
               </div>
             </div>
           </div>
-    <div class="container">
+    <div class="container" style="margin-left: 200px; margin-right: 200px;">
       <div class="row">
           <div class="card" style="border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
               <div class="card-body">
@@ -148,5 +149,5 @@
     });
        
     </script>
-</x-app-layout>
+@endsection
 

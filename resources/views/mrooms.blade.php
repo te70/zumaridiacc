@@ -19,7 +19,8 @@
                 <th>Status</th>
                 <th>Check in</th>
                 <th>Check out</th>
-                <th>Created</th>
+                <th>Days</th>
+                <th>Total price</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -30,10 +31,16 @@
                 <td>{{$key+1}}</td>
                 <td>{{$room->room_number}}</td>
                 <td>{{$room->room_type}}</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>{{date('d-m-Y', strtotime($room->created_at))}}</td>
+                {{-- @dd($room->reservations) --}}
+                {{-- @if($room->reservations->check_out_date >  now()->format('Y-m-d')) --}}
+                <td>Booked</td>
+                {{-- @else --}}
+                {{-- <td>Not booked</td> --}}
+                {{-- @endif --}}
+                <td>{{date('d-m-Y', strtotime(json_encode($room->reservations('check_in_date'))))}}</td>
+                <td>{{date('d-m-Y', strtotime(json_encode($room->reservations('check_out_date'))))}}</td>
+                <td>{{json_encode($room->reservations('number_of_days'))}}</td>
+                <td>{{$room->reservations->get(0)}}</td>
                 <td><div class="dropup">
                     <a href="#" role="button" data-bs-toggle="dropdown" >
                       <i style="color: black;" class="bi bi-three-dots-vertical"></i>

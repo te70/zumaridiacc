@@ -15,7 +15,8 @@ class RoomController extends Controller
 
     public function manage(){
         $rooms = Room::all();
-        return view('mrooms', compact('rooms'));
+        $reservations = Reservation::all();
+        return view('mrooms', compact('rooms', 'reservations'));
     }
 
     public function addRooms(Request $request){
@@ -54,8 +55,9 @@ class RoomController extends Controller
         $reserveRoom->contact_number = $request->contact_number;
         $reserveRoom->contact_type = $request->contact_type;
         $reserveRoom->id_number = $request->id_number;
+        $reserveRoom->room_id = $request->room_number;
         $reserveRoom->save();
-
+        
         return response(200);
     }
 }
