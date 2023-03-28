@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RentalController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StaffController;
@@ -28,4 +29,7 @@ Route::post('/add/rooms', [RoomController::class, 'addRooms'])->name('addrooms')
 Route::post('/add/staff', [StaffController::class, 'store'])->name('addstaff');
 
 Route::post('/add/reservation', [RoomController::class, 'reserveRoom'])->name('reserveroom');
+
+Route::post('/rentals/tenants', [RentalController::class, 'tenant'])->name('tenant');
+Route::post('/rentals/houses', [RentalController::class, 'house'])->name('house');
 

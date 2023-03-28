@@ -1,15 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Bar') }}
-        </h2>
-    </x-slot>
-  
-    <div class="py-12">
-        <div class="" style="margin-left: 250px; margin-bottom:30px; margin-right: 150px;">
+    <div class="m-3">
+        <div class="container" style="margin-left: 250px; margin-bottom:30px;">
             <div class="row" style="margin-top: 30px;">          
-              <div class="col-sm-3">
+              <div class="col-xs-12 col-sm-8 col-md-6">
                 <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                   <div class="card-body">
                     <h4 class="card-text" style="text-align: center;">{{$expenses}}</h4>
@@ -17,7 +11,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-3">
+              <div class="col-xs-12 col-sm-8 col-md-6">
                 <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                   <div class="card-body">
                     <h4 class="card-text" style="text-align: center;">{{$expensesToday}}</h4>
@@ -28,39 +22,43 @@
             </div>
           </div>
   
-    <div class="card" style="margin-left: 250px; margin-right: 100px; border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-        <div class="card-body">
-          <div class="table-responsive" style="padding-top: 20px; margin-left: 10px;">
-            <div class="btn-group mr-2" style="float: right;">
-                <a type="submit" class="btn btn-sm btn-outline-primary" href="{{route('showplaystation')}}">Add new sale</a>
-                <a type="submit" class="btn btn-sm btn-outline-primary" href="">Export</a>
-              </div>
-              <h6 style="padding-bottom: 20px; color: #656b71;">Playstation sales</h6>
-            <table class="table" id="wines-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Total amount</th>
-                    <th>Expenses</th>
-                    <th>Net cash</th>
-                    <th>Date created</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($products as $key=>$product)
+  <div class="container">
+    <div class="row">
+      <div class="card" style="margin-left: 250px; border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+          <div class="card-body">
+            <div class="table-responsive" style="padding-top: 20px; margin-left: 10px;">
+              <div class="btn-group mr-2" style="float: right;">
+                  <a type="submit" class="btn btn-sm btn-outline-primary" href="{{route('showplaystation')}}">Add new sale</a>
+                  <a type="submit" class="btn btn-sm btn-outline-primary" href="">Export</a>
+                </div>
+                <h6 style="padding-bottom: 20px; color: #656b71;">Playstation sales</h6>
+              <table class="table" id="wines-table">
+                  <thead>
                     <tr>
-                      <td>{{$key+1}}</td>
-                      <td style="text-transform: uppercase;">{{$product->cash}}</td>  
-                      <td style="text-transform: uppercase;">{{$product->expenses}}</td>
-                      <td>{{$product->net_cash}}</td>
-                      <td>{{date('d-m-Y', strtotime($product->created_at));}}</td>
+                      <th>#</th>
+                      <th>Total amount</th>
+                      <th>Expenses</th>
+                      <th>Net cash</th>
+                      <th>Date created</th>
                     </tr>
-                  @endforeach
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    @foreach($products as $key=>$product)
+                      <tr>
+                        <td>{{$key+1}}</td>
+                        <td style="text-transform: uppercase;">{{$product->cash}}</td>  
+                        <td style="text-transform: uppercase;">{{$product->expenses}}</td>
+                        <td>{{$product->net_cash}}</td>
+                        <td>{{date('d-m-Y', strtotime($product->created_at));}}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+          </div>
         </div>
       </div>
     </div>
+  </div>
   
     <script>
     $(document).ready(function() {

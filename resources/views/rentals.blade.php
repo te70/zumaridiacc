@@ -6,11 +6,19 @@
       <div class="col-xs-12 col-sm-8 col-md-6">
         <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
           <div class="card-body">
-            <h4 class="card-text" style="text-align: center;">{{count($staffs)}}</h4>
-            <p class="card-title" style="font-size: 20px; text-align: center;">Staff</p>
+            <h4 class="card-text" style="text-align: center;">{{count($rentals)}}</h4>
+            <p class="card-title" style="font-size: 20px; text-align: center;">Houses</p>
           </div>
         </div>
       </div>
+      <div class="col-xs-12 col-sm-8 col-md-6">
+        <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+          <div class="card-body">
+            <h4 class="card-text" style="text-align: center;">{{count($staffs)}}</h4>
+            <p class="card-title" style="font-size: 20px; text-align: center;">Tenants</p>
+          </div>
+        </div>
+      </div> 
     </div>
   </div>
   <div class="container pt-4" style="margin-left: 220px;">
@@ -18,34 +26,37 @@
           <div class="card" style="border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
           <div class="card-body">
               <div class="btn-group mr-2" style="float: right;">
-                  <a type="submit" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add staff</a>
+                  <a type="submit" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add tenants</a>
+                  <a type="submit" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#billsModal">Add bills</a>
               </div>
-              <h5 class="card-title">Manage staff</h5>
+              <h5 class="card-title">Manage rentals</h5>
           <div class="table-responsive pt-4">
           <table class="table table-sm" id="table">
               <thead>
               <tr>
                   <th>#</th>
-                  <th>Employee name</th>
-                  <th>Staff</th>
-                  <th>Shift</th>
-                  <th>Joining date</th>
-                  <th>Change shift</th>
-                  <th>Created</th>
+                  <th>House number</th>
+                  <th>Status</th>
+                  <th>Elec total</th>
+                  <th>Water total</th>
+                  <th>Total bills</th>
+                  <th>Total rent</th>
+                  <th>Arrears</th>
                   <th>Action</th>
               </tr>
               </thead>
               <tbody> 
-              @foreach($staffs as $key=>$staff)
+              @foreach($rentals as $key=>$rental)
               {{-- @if($fingerprint->mac) --}}
                   <tr>
                   <td>{{$key+1}}</td>
-                  <td style="text-transform: uppercase;">{{$staff->first_name.' '.$staff->last_name}}</td>
-                  <td style="text-transform: uppercase;">{{$staff->staff_type}}</td>
-                  <td style="text-transform: uppercase;">{{$staff->shift}}</td>
-                  <td>{{date('d-m-Y', strtotime($staff->created_at))}}</td>
-                  <td style="text-transform: uppercase;"><span class="badge rounded-pill text-bg-warning">{{$staff->shift}}</span></td>
-                  <td>{{date('d-m-Y', strtotime($staff->created_at))}}</td>
+                  <td style="text-transform: uppercase;">{{$rental->house_number}}</td>
+                  <td style="text-transform: uppercase;">{{$rental->house_number}}</td>
+                  <td style="text-transform: uppercase;">{{$rental->elec_total}}</td>
+                  <td style="text-transform: uppercase;">{{$rental->water_total}}</td>
+                  <td>{{$rental->total_bills}}</td>
+                  <td style="text-transform: uppercase;">{{$rental->total_due}}</td>
+                  <td>{{$rental->arrears}}</td>
                   <td><div class="dropup">
                       <a href="#" role="button" data-bs-toggle="dropdown" >
                         <i style="color: black;" class="bi bi-three-dots-vertical"></i>
@@ -91,37 +102,16 @@
             </div>
           </div>
       </div>
-      {{-- Add modal --}}
+      {{-- Add tenants modal --}}
       <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Add room</h5>
+                <h5 class="modal-title" id="addModalLabel">Add tenant</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form method="POST" action="{{route('addstaff')}}">
-                <div class="row">
-                  <div class="col">
-                    <label for="customerEmail" class="form-label" style="font-weight: bold;">Staff type</label>
-                    <select class="form-select" aria-label="Default select example"  name="staff_type">
-                      <option selected>Select Staff type</option>
-                        <option value="rooms">Rooms</option>
-                        <option value="bar">Bar</option>
-                        <option value="wines">Wines</option>
-                        <option value="playstation">Ps</option>
-                        <option value="inbet">Inbet</option>
-                    </select>
-                  </div>
-                  <div class="col">
-                    <label for="customerEmail" class="form-label" style="font-weight: bold;">Shift</label>
-                    <select class="form-select" aria-label="Default select example" name="shift">
-                      <option selected>Select shift</option>
-                      <option value="day">Day</option>
-                      <option value="night">Night</option>
-                    </select>
-                  </div>
-                </div>
+                <form method="POST" action="{{route('tenant')}}">
                     <div class="row">
                       <div class="col">
                         <label for="firstName" class="form-label" style="font-weight: bold;">First name</label>
@@ -140,26 +130,18 @@
                     </div>
                     <div class="row pt-4">
                       <div class="col">
-                        <label for="customerEmail" class="form-label" style="font-weight: bold;">ID card type</label>
-                        <select class="form-select" aria-label="Default select example" name="id_type">
-                          <option selected>Select ID type</option>
-                          <option value="id">ID number</option>
-                          <option value="passport">Passport number</option>
-                        </select>
-                      </div>
-                      <div class="col">
-                        <label for="selected ID" class="form-label" style="font-weight: bold;">Selected ID type</label>
-                        <input type="text" class="form-control" placeholder="Selected ID" name="id_number">
+                        <label for="contactNumber" class="form-label" style="font-weight: bold;">ID number</label>
+                        <input type="text" class="form-control" placeholder="ID number" name="id_number">
                       </div>
                     </div>
                     <div class="row pt-4">
                       <div class="col">
-                        <label for="customerEmail" class="form-label" style="font-weight: bold;">Residential address</label>
-                        <input type="text" class="form-control" placeholder="Residential address" name="residential_address">
+                        <label for="customerEmail" class="form-label" style="font-weight: bold;">ID front</label>
+                        <input type="file" class="form-control" placeholder="ID front" name="id_front">
                       </div>
                       <div class="col">
-                        <label for="selected ID" class="form-label" style="font-weight: bold;">Salary</label>
-                        <input type="text" class="form-control" placeholder="Salary" name="salary">
+                        <label for="selected ID" class="form-label" style="font-weight: bold;">ID back</label>
+                        <input type="file" class="form-control" placeholder="ID back" name="id_back">
                       </div>
                     </div>
                     <div class="row pt-4">
@@ -172,8 +154,47 @@
               </div> 
         </div>
       </div>
-    </div>
-              </div>
+      {{-- Add bills modal --}}
+      <div class="modal fade" id="billsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addModalLabel">Add Bills</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="{{route('addstaff')}}">
+                  <div class="row">
+                    <div class="col">
+                      <label for="firstName" class="form-label" style="font-weight: bold;">House number</label>
+                      <select class="form-select" aria-label="Default select example"  name="staff_type">
+                        <option selected>Select house number</option>
+                        @foreach($rentals as $rental)
+                        <option value="{{ $rental->id }}">{{$rental->house_number}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row pt-4">
+                    <div class="col">
+                      <label for="contactNumber" class="form-label" style="font-weight: bold;">Elec</label>
+                      <input type="text" class="form-control" placeholder="Electricity" name="elec">
+                    </div>
+                    <div class="col">
+                      <label for="contactNumber" class="form-label" style="font-weight: bold;">Water</label>
+                      <input type="text" class="form-control" placeholder="Water" name="water">
+                    </div>
+                  </div>
+                  <div class="row pt-4">
+                    <div class="col">
+                      <button class="btn btn-outline-primary btn-sm" role="submit">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div> 
+      </div>
+              
             </div>
           </div>
       </div>

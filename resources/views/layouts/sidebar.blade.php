@@ -77,7 +77,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('staff')}}" style="font-size: 18px;">
+              <a class="nav-link" href="{{route('rentals')}}" style="font-size: 18px;">
                 <span class="bi bi-door-closed pe-2"></span>
                 Rentals
               </a>
