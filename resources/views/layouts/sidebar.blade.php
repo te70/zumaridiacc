@@ -83,7 +83,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showinbet')}}" style="font-size: 18px;">
+              <a class="nav-link" href="{{route('users')}}" style="font-size: 18px;">
                 <span class="bi bi-people pe-2"></span>
                 Users
               </a>

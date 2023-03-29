@@ -14,18 +14,19 @@ return new class extends Migration
         Schema::create('rentals', function (Blueprint $table) {
             $table->id();
             $table->string('house_number')->nullable();
-            $table->string('elec_prev')->nullable();
-            $table->string('elec_curr')->nullable();
-            $table->string('elec_consump')->nullable();
-            $table->string('elec_total')->nullable();
-            $table->string('water_prev')->nullable();
-            $table->string('water_curr')->nullable();
-            $table->string('water_consump')->nullable();
-            $table->string('water_total')->nullable();
-            $table->string('total_bills')->nullable();
-            $table->string('total_due')->nullable();
-            $table->string('rent')->nullable();
-            $table->string('arrears')->nullable();
+            $table->string('elec_prev')->default('0');
+            $table->string('elec_curr')->default('0');
+            $table->string('elec_consump')->default('0');
+            $table->string('elec_total')->default('0');
+            $table->string('water_prev')->default('0');
+            $table->string('water_curr')->default('0');
+            $table->string('water_consump')->default('0');
+            $table->string('water_total')->default('0');
+            $table->string('total_bills')->default('0');
+            $table->string('total_due')->default('0');
+            $table->string('rent')->default('0');
+            $table->string('arrears')->default('0');
+            $table->string('tenant_id')->nullable();
             $table->timestamps();
         });
     }

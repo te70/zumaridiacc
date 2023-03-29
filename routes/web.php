@@ -6,6 +6,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\RentalController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -43,6 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/staff', [StaffController::class, 'index'])->name('staff');
 
     Route::get('/rentals', [RentalController::class, 'index'])->name('rentals');
+    Route::get('/rentals/tenants', [RentalController::class, 'tenantView'])->name('tenantsview');
+    Route::get('/rentals/tenant', [RentalControlller::class, 'show'])->name('tenantshow');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users');
 });
 
 require __DIR__.'/auth.php';

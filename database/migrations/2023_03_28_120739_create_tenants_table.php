@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('contact');
             $table->string('id_front');
             $table->string('id_back');
-            $table->string('terms');
             $table->timestamps();
         });
     }

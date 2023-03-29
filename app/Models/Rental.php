@@ -23,4 +23,6 @@ class Rental extends Model
         'rent',
         'arrears',
     ];
+
+   
 }

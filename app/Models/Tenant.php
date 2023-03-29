@@ -14,7 +14,7 @@ class Tenant extends Model
         'last_name',
         'contact',
         'id_front',
-        'id_back',
-        'terms'
+        'id_back'
     ];
+
 }
