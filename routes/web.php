@@ -39,11 +39,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sales/inbet', [SalesController::class, 'showInbet'])->name('showinbet');
     Route::get('/sales/ib', [SalesController::class, 'showIb'])->name('showib');
+    Route::get('/ib/edit/{id}', [SalesController::class, 'editIb'])->name('editib');
 
     Route::get('/rooms', [RoomController::class, 'index'])->name('showroom');
     Route::get('/rooms/manage', [RoomController::class,'manage'])->name('manageroom');
 
     Route::get('/staff', [StaffController::class, 'index'])->name('staff');
+    Route::get('/staff/view/{id}', [StaffController::class, 'view'])->name('staffview');
+    Route::get('/staff/edit/{id}', [StaffController::class, 'edit'])->name('staffedit');
 
     Route::get('/rentals', [RentalController::class, 'index'])->name('rentals');
     Route::get('/rentals/tenants', [RentalController::class, 'tenantView'])->name('tenantsview');

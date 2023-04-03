@@ -27,4 +27,36 @@ class StaffController extends Controller
 
         return redirect('/staff');
     }
+
+    public function view($id)
+    {
+        $staff = Staff::find($id);
+        return view('staffhist', compact('staff'));
+    }
+
+    public function edit($id)
+    {
+        $staff = Staff::find($id);
+        return view('staffedit', compact('staff'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $staff = Staff::find($id);
+        $staff->first_name = $request->first_name;
+        $staff->last_name = $request->last_name;
+        $staff->contact_number = $request->contact_number;
+        $staff->shift = $request->shift;
+        $staff->residential_address = $request->residential_address;
+        $staff->update();
+
+        return redirect()->to('/staff');
+    }
+
+    public function delete(Request $request)
+    {
+        $deleteStaff = Staff::find($request->id);
+        $deleteStaff->delete();
+        return redirect()->to('/staff');
+    }
 }

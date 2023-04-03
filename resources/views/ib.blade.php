@@ -39,6 +39,7 @@
                               <th>Cashier 2</th>
                               <th>Net cash</th>
                               <th>Date created</th>
+                              <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -48,7 +49,20 @@
                                 <td style="text-transform: uppercase;">{{$product->cashier_1}}</td>  
                                 <td style="text-transform: uppercase;">{{$product->cashier_2}}</td>
                                 <td>{{$product->net_cash}}</td>
-                                <td>{{date('d-m-Y', strtotime($product->created_at));}}</td>
+                                <td>{{date('d-m-Y', strtotime($product->created_at))}}</td>
+                                <td><div class="dropup">
+                                  <a href="#" role="button" data-bs-toggle="dropdown" >
+                                    <i style="color: black;" class="bi bi-three-dots-vertical"></i>
+                                  </a>
+                                  <ul class="dropdown-menu">
+                                    <form action="{{ route('ib.delete', ['id' => $product->id]) }}" method="POST">
+                                      <a class="dropdown-item" href="{{route('editib',['id'=>$product->id])}}">Edit</a>
+                                      @csrf
+                                      @method('DELETE')
+                                      <button type="submit" class="dropdown-item" href="">Delete</button>
+                                  </form> 
+                                  </ul>
+                                </div></td>
                               </tr>
                             @endforeach
                           </tbody>

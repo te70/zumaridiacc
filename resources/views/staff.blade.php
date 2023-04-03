@@ -32,7 +32,7 @@
                   <th>Joining date</th>
                   <th>Change shift</th>
                   <th>Created</th>
-                  <th>Action</th>
+                  <th>Action</th> 
               </tr>
               </thead>
               <tbody> 
@@ -51,9 +51,9 @@
                         <i style="color: black;" class="bi bi-three-dots-vertical"></i>
                       </a>
                       <ul class="dropdown-menu">
-                        <form action="" method="POST">
-                          <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewModal">View</a>
-                          <a class="dropdown-item" href="">Edit</a>
+                        <form action="{{route('delete.staff', ['id'=>$staff->id])}}" method="POST">
+                          <a class="dropdown-item" href="{{route('staffview', ['id'=>$staff->id])}}">View</a>
+                          <a class="dropdown-item" href="{{route('staffedit', ['id'=>$staff->id])}}">Edit</a>
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="dropdown-item" href="">Delete</button>
