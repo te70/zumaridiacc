@@ -37,6 +37,8 @@ Route::post('/sales/bar/add-product', [SalesController::class, 'bar'])->name('ba
 Route::post('/sales/bar/expenses', [SalesController::class, 'barExpenses'])->name('bar.expenses');
 
 Route::post('/add/staff', [StaffController::class, 'store'])->name('addstaff');
+Route::post('/staff/edit/{id}', [StaffController::class, 'edit'])->name('edit.staff');
+Route::delete('/staff/delete/{id}', [StaffController::class, 'delete'])->name('delete.staff');
 
 Route::post('/add/reservation', [RoomController::class, 'reserveRoom'])->name('reserveroom');
 
