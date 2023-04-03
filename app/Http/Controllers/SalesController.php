@@ -12,6 +12,7 @@ use App\Models\Revenue;
 use App\Models\BarRevenue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Spatie\FlareClient\View;
 
 class SalesController extends Controller
 {
@@ -190,6 +191,31 @@ class SalesController extends Controller
         $ps->save();
 
         return redirect('/sales/ps');
+    }
+
+    public function psEditView($id)
+    {
+        $ps = PlayStation::find($id);
+        return view('psedit', compact('ps'));
+    }
+
+    public function psEditUpdate(Request $request, $id)
+    {
+        $psEdit = PlayStation::find($id);
+        $netCash = $request->total_amount - $request->expenses;
+        $psEdit->cash = $request->total_amount;
+        $psEdit->expenses = $request->expenses;
+        $psEdit->net_cash = $netCash;
+        $psEdit->update(); 
+        return redirect()->to('/sales/playstation');
+    }
+
+    public function psDelete(Request $request)
+    {
+        $deletePs = PlayStation::find($request->id);
+        $deletePs->delete();
+
+        return redirect()->to('/sales/ps');
     }
     
     public function showInbet(){

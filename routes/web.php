@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sales/playstation', [SalesController::class, 'showPlaystation'])->name('showplaystation');
     Route::get('/sales/ps', [SalesController::class, 'showPs'])->name('showps');
+    Route::get('/ps/edit/{id}', [SalesController::class, 'psEditView'])->name('editps');
 
     Route::get('/sales/inbet', [SalesController::class, 'showInbet'])->name('showinbet');
     Route::get('/sales/ib', [SalesController::class, 'showIb'])->name('showib');
