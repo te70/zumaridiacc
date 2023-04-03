@@ -241,6 +241,33 @@ class SalesController extends Controller
         return redirect('/sales/ib');
     }
 
+    public function editIb($id)
+    {
+        $editIb = Inbet::find($id);
+        return view('ibedit', compact('editIb'));
+    }
+
+    public function ibEditUpdate(Request $request, $id)
+    {
+        $netCash = $request->cashier_1 + $request->cashier_2;
+
+        $ib = Inbet::find($id);
+        $ib->cashier_1 = $request->cashier_1;
+        $ib->cashier_2= $request->cashier_2;
+        $ib->net_cash = $netCash;
+        $ib->update();
+        
+        return redirect()->to('/sales/ib');
+    }
+
+    public function ibDelete(Request $request)
+    {
+        $deletePs = Inbet::find($request->id);
+        $deletePs->delete();
+
+        return redirect()->to('/sales/ib');
+    }
+
     public function productForm(){
         return view('productform');
     }

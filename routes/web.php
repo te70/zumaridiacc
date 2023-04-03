@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sales/inbet', [SalesController::class, 'showInbet'])->name('showinbet');
     Route::get('/sales/ib', [SalesController::class, 'showIb'])->name('showib');
+    Route::get('/ib/edit/{id}', [SalesController::class, 'editIb'])->name('editib');
 
     Route::get('/rooms', [RoomController::class, 'index'])->name('showroom');
     Route::get('/rooms/manage', [RoomController::class,'manage'])->name('manageroom');

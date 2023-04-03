@@ -28,6 +28,8 @@ Route::post('/ps/edit/{id}', [SalesController::class, 'psEditUpdate'])->name('ps
 Route::delete('/ps/delete/{id}', [SalesController::class, 'psDelete'])->name('ps.delete');
 
 Route::post('/sales/inbet', [SalesController::class, 'inbet'])->name('sales.ib');
+Route::post('/ib/edit/{id}', [SalesController::class, 'ibEditUpdate'])->name('ib.edit');
+Route::delete('/ib/delete/{id}', [SalesController::class, 'ibDelete'])->name('ib.delete');
 
 Route::get('/sales/product-list', [SalesController::class, 'productList']);
 Route::post('/sales/add-product', [SalesController::class, 'addProduct'])->name('add.product');
