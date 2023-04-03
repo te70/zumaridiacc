@@ -77,25 +77,25 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('staff')}}" style="font-size: 18px;">
+              <a class="nav-link" href="{{route('rentals')}}" style="font-size: 18px;">
                 <span class="bi bi-door-closed pe-2"></span>
                 Rentals
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showinbet')}}" style="font-size: 18px;">
+              <a class="nav-link" href="{{route('users')}}" style="font-size: 18px;">
                 <span class="bi bi-people pe-2"></span>
                 Users
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showinbet')}}" style="font-size: 18px;">
+              <a class="nav-link" href="{{route('complaints')}}" style="font-size: 18px;">
                 <span class="bi bi-chat pe-2"></span>
                 Complaints
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('manageroom')}}" style="font-size: 18px;">
+              <a class="nav-link" href="{{route('settings')}}" style="font-size: 18px;">
                 <span class="bi bi-sliders2 pe-2"></span>
                 Settings
               </a>

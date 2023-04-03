@@ -6,8 +6,8 @@
       <div class="col-xs-12 col-sm-8 col-md-6">
         <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
           <div class="card-body">
-            <h4 class="card-text" style="text-align: center;">{{count($staffs)}}</h4>
-            <p class="card-title" style="font-size: 20px; text-align: center;">Staff</p>
+            <h4 class="card-text" style="text-align: center;">{{count($tenants)}}</h4>
+            <p class="card-title" style="font-size: 20px; text-align: center;">Tenants</p>
           </div>
         </div>
       </div>
@@ -18,34 +18,32 @@
           <div class="card" style="border: none; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
           <div class="card-body">
               <div class="btn-group mr-2" style="float: right;">
-                  <a type="submit" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add staff</a>
+                  <a type="submit" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Export</a>
               </div>
-              <h5 class="card-title">Manage staff</h5>
+              <h5 class="card-title">Manage tenants</h5>
           <div class="table-responsive pt-4">
           <table class="table table-sm" id="table">
               <thead>
               <tr>
                   <th>#</th>
-                  <th>Employee name</th>
-                  <th>Staff</th>
-                  <th>Shift</th>
-                  <th>Joining date</th>
-                  <th>Change shift</th>
-                  <th>Created</th>
+                  <th>Name</th>
+                  <th>Contact</th>
+                  <th>House number</th>
+                  <th>ID front</th>
+                  <th>ID back</th>
                   <th>Action</th>
               </tr>
               </thead>
               <tbody> 
-              @foreach($staffs as $key=>$staff)
+              @foreach($tenants as $key=>$tenant)
               {{-- @if($fingerprint->mac) --}}
                   <tr>
                   <td>{{$key+1}}</td>
-                  <td style="text-transform: uppercase;">{{$staff->first_name.' '.$staff->last_name}}</td>
-                  <td style="text-transform: uppercase;">{{$staff->staff_type}}</td>
-                  <td style="text-transform: uppercase;">{{$staff->shift}}</td>
-                  <td>{{date('d-m-Y', strtotime($staff->created_at))}}</td>
-                  <td style="text-transform: uppercase;"><span class="badge rounded-pill text-bg-warning">{{$staff->shift}}</span></td>
-                  <td>{{date('d-m-Y', strtotime($staff->created_at))}}</td>
+                  <td style="text-transform: uppercase;">{{$tenant->first_name.' '.$tenant->last_name}}</td>
+                  <td style="text-transform: uppercase;">{{$tenant->contact}}</td>
+                  <td style="text-transform: uppercase;">{{$tenant->contact}}</td>
+                  <td><img src="{{ asset('/images/'. $tenant->imageName ) }}" width="100px" height="80px"></td>
+                  <td><img src="{{ asset('/images/'. $tenant->imageName ) }}" width="100px" height="80px"></td>
                   <td><div class="dropup">
                       <a href="#" role="button" data-bs-toggle="dropdown" >
                         <i style="color: black;" class="bi bi-three-dots-vertical"></i>

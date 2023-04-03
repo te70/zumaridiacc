@@ -36,7 +36,7 @@
               <div class="col-xs-8 col-sm-3 col-md-3">
                 <div class="card" style="border: none; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"> 
                   <div class="card-body">
-                    <h4 class="card-text">{{$ibRevenue}}</h4>
+                    <h4 class="card-text">{{count($complaints)}}</h4>
                     <p class="card-title" style="font-size: 20px;">Complaints</p>
                     <span class="bi bi-chat" style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 32px;"></span>
                   </div>
