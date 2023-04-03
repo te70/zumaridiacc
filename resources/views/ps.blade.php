@@ -56,8 +56,8 @@
                             <i style="color: black;" class="bi bi-three-dots-vertical"></i>
                           </a>
                           <ul class="dropdown-menu">
-                            <form action="" method="POST">
-                              <a class="dropdown-item" href="">Edit</a>
+                            <form action="{{ route('ps.delete', ['id' => $product->id]) }}" method="POST">
+                              <a class="dropdown-item" href="{{route('editps',['id'=>$product->id])}}">Edit</a>
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="dropdown-item" href="">Delete</button>
