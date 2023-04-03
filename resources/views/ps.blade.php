@@ -40,6 +40,7 @@
                       <th>Expenses</th>
                       <th>Net cash</th>
                       <th>Date created</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -50,6 +51,19 @@
                         <td style="text-transform: uppercase;">{{$product->expenses}}</td>
                         <td>{{$product->net_cash}}</td>
                         <td>{{date('d-m-Y', strtotime($product->created_at));}}</td>
+                        <td><div class="dropup">
+                          <a href="#" role="button" data-bs-toggle="dropdown" >
+                            <i style="color: black;" class="bi bi-three-dots-vertical"></i>
+                          </a>
+                          <ul class="dropdown-menu">
+                            <form action="" method="POST">
+                              <a class="dropdown-item" href="">Edit</a>
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="dropdown-item" href="">Delete</button>
+                          </form> 
+                          </ul>
+                        </div></td>
                       </tr>
                     @endforeach
                   </tbody>

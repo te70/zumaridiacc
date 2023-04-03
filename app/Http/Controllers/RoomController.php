@@ -16,6 +16,7 @@ class RoomController extends Controller
     public function manage(){
         $rooms = Room::all();
         $reservations = Reservation::all();
+        
         return view('mrooms', compact('rooms', 'reservations'));
     }
 

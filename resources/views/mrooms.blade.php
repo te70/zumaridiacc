@@ -37,10 +37,10 @@
                 {{-- @else --}}
                 {{-- <td>Not booked</td> --}}
                 {{-- @endif --}}
-                <td>{{date('d-m-Y', strtotime(json_encode($room->reservations('check_in_date'))))}}</td>
-                <td>{{date('d-m-Y', strtotime(json_encode($room->reservations('check_out_date'))))}}</td>
-                <td>{{json_encode($room->reservations('number_of_days'))}}</td>
-                <td>{{$room->reservations->get(0)}}</td>
+                <td>{{date('d-m-Y', strtotime($room->check_in_date))}}</td>
+                <td>{{date('d-m-Y', strtotime($room->check_out_date))}}</td>
+                <td>{{$room->number_of_days}}</td>
+                <td>{{$room->total_price}}</td>
                 <td><div class="dropup">
                     <a href="#" role="button" data-bs-toggle="dropdown" >
                       <i style="color: black;" class="bi bi-three-dots-vertical"></i>

@@ -89,13 +89,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('showinbet')}}" style="font-size: 18px;">
+              <a class="nav-link" href="{{route('complaints')}}" style="font-size: 18px;">
                 <span class="bi bi-chat pe-2"></span>
                 Complaints
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('manageroom')}}" style="font-size: 18px;">
+              <a class="nav-link" href="{{route('settings')}}" style="font-size: 18px;">
                 <span class="bi bi-sliders2 pe-2"></span>
                 Settings
               </a>

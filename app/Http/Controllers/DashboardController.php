@@ -11,6 +11,7 @@ use App\Models\Room;
 use App\Models\Staff;
 use App\Models\Wines;
 use App\Models\User;
+use App\Models\Complaint;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,8 @@ class DashboardController extends Controller
         $staff = Staff::all();
         $bookedRooms = Reservation::all()->where('check_in_date', '>=', $now && 'check_out_date', '<=', $now);
         $wines = Wines::all();
-        $users = User::all();
+        $users = User::all()->where('last_login_at','!=',null);
+        $complaints = Complaint::all();
         // $winesChart = Revenue::select('id', 'created_at')
         //                 ->get()
         //                 ->groupBy(function($date) {
@@ -46,7 +48,7 @@ class DashboardController extends Controller
         //     $labels[] = $key;
         //     $data[] = $group->count();
         // }
-        return view('dashboard', compact('rooms', 'reservations', 'staff', 'wines','bookedRooms','winesRevenue', 'barRevenue', 'psRevenue', 'ibRevenue', 'roomRevenue', 'users'));
+        return view('dashboard', compact('rooms', 'reservations', 'staff', 'wines','bookedRooms','winesRevenue', 'barRevenue', 'psRevenue', 'ibRevenue', 'roomRevenue', 'users', 'complaints'));
     }
 
     /**

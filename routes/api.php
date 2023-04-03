@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SalesController;
@@ -38,3 +39,6 @@ Route::post('/rentals/rent', [RentalController::class, 'rent'])->name('rent');
 
 Route::post('/user/create', [UserController::class, 'create'])->name('usercreate');
 
+Route::post('/complaints/create', [ComplaintController::class, 'store'])->name('complaintcreate');
+
+Route::post('/settings/update', [UserController::class, 'update'])->name('settingsupdate');
