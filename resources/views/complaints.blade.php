@@ -51,8 +51,8 @@
                         <i style="color: black;" class="bi bi-three-dots-vertical"></i>
                       </a>
                       <ul class="dropdown-menu">
-                        <form action="" method="POST">
-                          <a class="dropdown-item" href="">Edit</a>
+                        <form action="{{route('complaint.delete', ['id'=>$complaint->id])}}" method="POST">
+                          <a class="dropdown-item" href="{{route('complaintsedit', ['id'=>$complaint->id])}}">Edit</a>
                           @csrf
                           @method('DELETE')
                           <button type="submit" class="dropdown-item" href="">Delete</button>

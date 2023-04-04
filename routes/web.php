@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users');
 
     Route::get('/complaints', [ComplaintController::class, 'index'])->name('complaints');
+    Route::get('/complaints/edit/{id}', [ComplaintController::class, 'edit'])->name('complaintsedit');
 
     Route::get('/settings', [UserController::class, 'settings'])->name('settings');
 });
