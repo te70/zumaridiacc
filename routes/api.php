@@ -50,5 +50,7 @@ Route::post('/rentals/rent', [RentalController::class, 'rent'])->name('rent');
 Route::post('/user/create', [UserController::class, 'create'])->name('usercreate');
 
 Route::post('/complaints/create', [ComplaintController::class, 'store'])->name('complaintcreate');
+Route::post('/complaints/update/{id}', [ComplaintController::class, 'update'])->name('complaint.update');
+Route::delete('/complaints/delete/{id}', [ComplaintController::class, 'delete'])->name('complaint.delete');
 
 Route::post('/settings/update', [UserController::class, 'update'])->name('settingsupdate');
