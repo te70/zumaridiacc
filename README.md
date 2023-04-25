@@ -1,5 +1,5 @@
 # Zumaridiacc
-- An ongoing project for tracking hotel operations e.g Hotel rooom booking and staff activities
+- An ongoing project for tracking hotel operations e.g Hotel room booking and staff activities
 
 ## Tech stack
 <p>
